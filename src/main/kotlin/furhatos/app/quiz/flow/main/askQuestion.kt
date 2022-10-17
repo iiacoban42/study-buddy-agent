@@ -13,15 +13,43 @@ import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.RequestRepeat
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import recording.SoundRecorder
+
+fun record(): SoundRecorder? {
+    val sound = SoundRecorder()
+    var recorder = sound.initialize()
+
+    GlobalScope.async {
+        println("Recording...")
+
+        println("async recorder is $recorder")
+
+        recorder.startRecording(recorder)
+
+        println("Done recording")
+    }
+
+    println(recorder.toString())
+
+    return recorder
+}
+
+var recorder: SoundRecorder? = null
 
 val AskQuestion: State = state(parent = Parent) {
     var failedAttempts = 0
 
     onEntry {
+        recorder?.finish()
+
         failedAttempts = 0
 
         // Set speech rec phrases based on the current question's answers
         furhat.setSpeechRecPhrases(QuestionSet.current.speechPhrases)
+
+        recorder = record()
 
         // Ask the question followed by the options
         furhat.ask(QuestionSet.current.text + " " + QuestionSet.current.getOptionsString())
@@ -29,12 +57,18 @@ val AskQuestion: State = state(parent = Parent) {
 
     // Here we re-state the question
     onReentry {
+        recorder?.finish()
+
+        recorder = record()
+
         failedAttempts = 0
         furhat.ask("The question was, ${QuestionSet.current.text} ${QuestionSet.current.getOptionsString()}")
     }
 
     // User is answering with any of the alternatives
     onResponse<AnswerOption> {
+        recorder?.finish()
+
         val answer = it.intent
 
         // If the user answers correct, we up the user's score and congratulates the user
@@ -79,21 +113,29 @@ val AskQuestion: State = state(parent = Parent) {
 
     // The users answers that they don't know
     onResponse<DontKnow> {
+        recorder?.finish()
+
         furhat.say("Too bad. Here comes the next question")
         goto(NewQuestion)
     }
 
     onResponse<RequestRepeat> {
+        recorder?.finish()
+
         reentry()
     }
 
     onResponse<RequestRepeatQuestion> {
+        recorder?.finish()
+
         furhat.gesture(Gestures.BrowRaise)
         furhat.ask(QuestionSet.current.text)
     }
 
     // The user wants to hear the options again
     onResponse<RequestRepeatOptions> {
+        recorder?.finish()
+
         furhat.gesture(Gestures.Surprise)
         random(
                 { furhat.ask("They are ${QuestionSet.current.getOptionsString()}") },
@@ -103,6 +145,8 @@ val AskQuestion: State = state(parent = Parent) {
 
     // If we don't get any response, we assume the user was too slow
     onNoResponse {
+        recorder?.finish()
+
         random(
                 { furhat.say("Too slow! Here comes the next question") },
                 { furhat.say("A bit too slow amigo! Get ready for the next question") }
@@ -115,7 +159,11 @@ val AskQuestion: State = state(parent = Parent) {
         finally moving on if we still don't get it.
      */
     onResponse {
+        recorder?.finish()
+
         failedAttempts++
+        if(failedAttempts < 3)
+            record()
         when (failedAttempts) {
             1 -> furhat.ask("I didn't get that, sorry. Try again!")
             2 -> {
