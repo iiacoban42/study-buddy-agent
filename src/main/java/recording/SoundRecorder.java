@@ -28,9 +28,9 @@ public class SoundRecorder {
      * Defines an audio format
      */
     AudioFormat getAudioFormat() {
-        float sampleRate = 16000;
+        float sampleRate = 44100;
         int sampleSizeInBits = 16;
-        int channels = 1;
+        int channels = 2;
         boolean signed = true;
         boolean bigEndian = false;
         AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
