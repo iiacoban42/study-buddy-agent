@@ -30,11 +30,13 @@ object QuestionSet {
  * @answer : A list containing the correct answer to the question, followed by alternative pronunciations of the correct answer
  * @alternatives A list, containing lists of other (wrong) answers. Every other answer is also followed by alternative pronunciations of the correct answer.
  */
-class Question(val text: String, answer: List<String>, alternatives: List<List<String>>) {
+class Question(val text: String, answer: List<String>, alternatives: List<List<String>>, explanation: List<String>) {
     //All options, used to prime the NLU
     var options : MutableList<EnumItem> = mutableListOf()
     //Only the first option of the answers, these are correctly spelled, and not alternative.
     var primeoptions : MutableList<EnumItem> = mutableListOf()
+
+    var explanation : MutableList<EnumItem> = mutableListOf()
 
     //init loads the first item of the list into primeoptions
     //And loads everything into options

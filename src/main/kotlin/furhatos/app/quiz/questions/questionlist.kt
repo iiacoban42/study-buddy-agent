@@ -7,83 +7,116 @@ package furhatos.app.quiz.questions
  *  -A list of other answers followed by their alternatives
  */
 val questionsEnglish = mutableListOf(
-        Question("How many wives did Henry VIII have?",
-                answer = listOf("6"),
-                alternatives = listOf(listOf("5"), listOf("8"), listOf("4"))),
 
-        Question("Which country won the 2016 Eurovision Song competition?",
-                answer = listOf("Ukraine"),
-                alternatives = listOf(listOf("Sweden"), listOf("France"), listOf("Finland"))),
+        Question("What is the Great Red Spot on Jupiter?",
+                answer = listOf("a storm", "storm"),
+                alternatives = listOf(listOf("a volcano",  "volcano"),
+                        listOf("a crater", "crater"),
+                        listOf("a lake", "lake")),
+                explanation = listOf("Jupiter has no volcanoes",
+                        "Jupiter has no craters ",
+                        "Jupiter has no lakes",
+                        "The Great Red Spot is a massive storm in Jupiter's atmosphere")
 
-        Question("When was the first circumnavigation of the world completed?",
-                answer = listOf("15 22", "1522"),
-                alternatives = listOf(listOf("14 99", "1499"), listOf("16 32", "1632"), listOf("15 78", "1578"))),
+                ),
 
-        Question("Which language is Afrikaans derived from?",
-                answer = listOf("Dutch", "touch"),
-                alternatives = listOf(listOf("German"), listOf("Spanish"), listOf("English"))),
+        Question("Which of this planet is the smallest?",
+        answer = listOf("Mercury"),
+        alternatives = listOf(listOf("Uranus"),
+                listOf("Jupiter"),
+                listOf("Earth")),
+        explanation = listOf("Uranus is 51,118 km wide",
+                "Jupiter is 142,984 km wide",
+                "Earth is 12,756 km wide",
+                "Mercury is 4,879 km wide")
 
-        Question("The Strip is a famous street in which American city?",
-                answer = listOf("Las Vegas", "vegas"),
-                alternatives = listOf(listOf("Washington DC", "washington"), listOf("Los Angeles", "hollywood", "angeles", "la"), listOf("New York", "York", "New"))),
+        ),
 
-        Question("During which decade did Elvis Presley die?",
-                answer = listOf("70s", "seventies", "70"),
-                alternatives = listOf(listOf("50s", "fifties", "50"), listOf("60s", "sixties", "60"), listOf("80s", "eighties", "hades", "80"))),
+        Question("Which planet do the moons Oberon and Titania belong to?",
+        answer = listOf("Uranus"),
+        alternatives = listOf(listOf("Jupiter"),
+                listOf("Earth"),
+                listOf("Venus")),
+        explanation = listOf("Has more than 60 moons but not Oberon and Titania",
+                "Earth is orbited by the moon",
+                "Venus has no moons",
+                "Oberon and Titania or two of Uranus 27 moons")
 
-        Question("As of 2016, which athlete had won the most Olympic medals?",
-                answer = listOf("Michael Phelps", "Phelps", "Michael"),
-                alternatives = listOf(listOf("Usain Bolt", "Bolt", "Usain"))),
+),
+        Question("The largest volcano in the solar system is called Olympus Mons? Where is it?",
+                answer = listOf("Mars"),
+                alternatives = listOf(listOf("Venus"),
+                        listOf("Earth"),
+                        listOf("Jupiter")),
+                explanation = listOf("Venus has more than 1600 volcanoes but Olympus Mons is not one of them",
+                        "Earth is not home to Olympus Mons. Earth's largest volcano is Mauna Loa, Hawaii.",
+                        "Jupiter has no volcanoes",
+                        "Olympus Mons, the largest volcano in the solar system is on Mars")
+),
 
-        Question("Who is the author of the Game of Thrones books?",
-                answer = listOf("George RR Martin", "George Martin", "George", "martin"),
-                alternatives = listOf(listOf("JK Rowling", "Rowling", "Rolling"), listOf("Suzanne Collins", "Collins", "Suzanne"), listOf("JRR Tolkien", "Tolkien", "Talking"))),
+        Question("What are comets made off?",
+                answer = listOf("Snow ice and dust", "dust", "snow", "ice", "snow ice", "ice dust", "snow dust"),
+                alternatives = listOf(listOf("Poisonous liquid"),
+                        listOf("Rusty metal", "metal"),
+                        listOf("Hot liquid rock", "liquid rock")),
+                explanation = listOf("Comets are not made of poisonous liquids",
+                        "Comets are not made of rusty metal",
+                        "Comets are not made of hot liquid rock",
+                        "Comets are mostly made of snow ice and dust")
+        ),
 
-        Question("Which nation won the most gold medals at the 2014 Olympics in Brazil?",
-                answer = listOf("USA", "America"),
-                alternatives = listOf(listOf("Great Britain", "United Kingdom", "Britain"), listOf("China"), listOf("Russia"))),
+        Question("What is the Sun mainly made from?",
+        answer = listOf("Gas"),
+        alternatives = listOf(listOf("Molten iron"),
+                listOf("Rock"),
+                listOf("Liquid lava", "Lava")),
+        explanation = listOf("The Sun is not made of molten iron",
+                "The Sun is not made of rock",
+                "There's no lava on the Sun",
+                "The Sun is mainly made from hydrogen and helium gas")
+        ),
+        Question("Which of these best describes the atmosphere surrounding Venus?",
+                answer = listOf("Hot and poisonous", "poisonous"),
+                alternatives = listOf(listOf("Cold and snowy", "snowy"),
+                        listOf("Cold and wet", "wet"),
+                        listOf("Bright and sunny", "Sunny")),
+                explanation = listOf("Venus is very hot. Temperatures reach 464 degrees Celsius.",
+                        "Venus is the hottest planet in the solar system",
+                        "Very little sunlight passes through the thick clouds of Venus",
+                        "Venus is surrounded by thick, acidic clouds around 50 km above its surface")
+        ),
 
-        Question("What is the largest freshwater lake in the world?",
-                answer = listOf("Lake Superior", "Superior"),
-                alternatives = listOf(listOf("Lake Victoria", "Victoria"), listOf("Lake Michigan", "Michigan"), listOf("Great Bear Lake", "Great Bear"), listOf("Lake Ontario", "Ontario"))),
+        Question("How many moons does Mars have?",
+        answer = listOf("Two"),
+        alternatives = listOf(listOf("One", "Just one"),
+                listOf("50"),
+                listOf("13")),
+        explanation = listOf("Mars has more than one moon.",
+                "Mars has fewer than 50 moons",
+                "Mars has fewer than 13 moons",
+                "Mars has two moons, Phobos and Deimos")
+        ),
 
-        Question("Where can you find the Sea of Tranquility?",
-                answer = listOf("The moon", "moon"),
-                alternatives = listOf(listOf("Turkey"), listOf("Germany"), listOf("The united states", "united states", "states"))),
+        Question("Which is the closest planet to the sun?",
+                answer = listOf("Mercury"),
+                alternatives = listOf(listOf("Neptune"),
+                        listOf("Earth"),
+                        listOf("Venus")),
+                explanation = listOf("Neptune is the furthest planet from the sun",
+                        "Earth is the third planet from the sun",
+                        "Venus is the second planet form the sun",
+                        "Mercury is the closest planet to the sun")
+        ),
 
-        Question("What is the seventh planet from the Sun?",
-                answer = listOf("Uranus", "anus"),
-                alternatives = listOf(listOf("Pluto"), listOf("Neptune", "tune"), listOf("Saturn"))),
+        Question("Where is the asteroid belt?",
+                answer = listOf("Between Mars and Jupiter"),
+                alternatives = listOf(listOf("Between Earth and Venus"),
+                        listOf("Between Earth and Mars"),
+                        listOf("Between Jupiter and Saturn")),
+                explanation = listOf("The asteroid belt is not between Earth and Venus",
+                        "The asteroid belt is not between Earth and Mars",
+                        "The asteroid belt is not between Jupiter and Saturn",
+                        "The asteroid belt is found in a region between the planets Mars and Jupiter.")
+        )
 
-        Question("In what year did, ABBA,  win the Eurovision songfestival?",
-                answer = listOf("19 74", "1974", "74"),
-                alternatives = listOf(listOf("19 78", "1978", "78"), listOf("19 76", "1976", "76"), listOf("19 72", "1972", "72"))),
-
-        Question("What is the title of the famous novel by George Orwell?",
-                answer = listOf("19 84", "1984"),
-                alternatives = listOf(listOf("The lord of the rings", "lord of the rings", "the rings"), listOf("The Great Gatsby", "great gatsby", "the great", "gatsby"), listOf("Of mice and men", "mice and men"))),
-
-        Question("Chardonnay. Malaga. and Merlot. are all types of which fruit?",
-                answer = listOf("Grape", "grapes"),
-                alternatives = listOf(listOf("Berry", "berries"), listOf("Melon", "Melons"), listOf("Stone fruit", "stone"))),
-
-        Question("What did the Wright Brothers invent in 19 02?",
-                answer = listOf("Airplane", "aeroplane", "plane"),
-                alternatives = listOf(listOf("car", "cars", "automobile"), listOf("motorbike", "motor", "bike"), listOf("Fighter jet", "jet", "fighter"))),
-
-        Question("Who was the first man on the moon?",
-                answer = listOf("Neil Armstrong", "Armstrong", "Neil"),
-                alternatives = listOf(listOf("Buzz Aldrin", "Buzz", "Aldrin"), listOf("Michael Collins", "Michael", "Collins"), listOf("Yuri Gagarin", "Yuri", "Gagarin"))),
-
-        Question("Which country has more inhabitants?",
-                answer = listOf("Sweden", "Swedish"),
-                alternatives = listOf(listOf("Switzerland", "Swiss"))),
-
-        Question("Which volcano erupted in 1906 and devastated Naples?",
-                answer = listOf("Mount Vesuvius", "Vesuvius"),
-                alternatives = listOf(listOf("Etna"), listOf("Fuji"), listOf("Krakatoa"))),
-
-        Question("Which famous tennis player is from Sweden?",
-                answer = listOf("Bjorn Borg", "Borg", "Bjorn"),
-                alternatives = listOf(listOf("Roger Federer", "Federer", "Roger"), listOf("Novak Djokovic", "Novak", "Djokovic"), listOf("Andy Murray", "Andy", "Murray")))
-)
+        )
