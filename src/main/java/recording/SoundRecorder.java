@@ -2,16 +2,21 @@ package recording;
 
 import javax.sound.sampled.*;
 import java.io.*;
+import java.nio.file.Paths;
 
 public class SoundRecorder {
 
     // record duration, in milliseconds
     static final long RECORD_TIME = 30000; // 30 sec
 
-    String fileName = "placeholder"; //to be changed with uuid
+    static int recordingNumber = 1;
+
+    String fileName = String.valueOf(recordingNumber);
+
+    String directoryPath = Paths.get("").toAbsolutePath() + "\\src\\main\\java\\recording\\";
 
     // path of the wav file
-    File wavFile = new File("C:\\Users\\S\\Desktop\\study-buddy-agent\\src\\main\\java\\recording\\" + fileName + ".wav");
+    File wavFile = new File(directoryPath + fileName + ".wav");
 
     // format of audio file
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
@@ -70,6 +75,8 @@ public class SoundRecorder {
      * Closes the target data line to finish capturing and recording
      */
     public void finish() {
+        if (wavFile.renameTo(new File(directoryPath + "done\\" + fileName + ".wav")))
+            System.out.println(fileName + " is done and moved");
         line.stop();
         line.close();
         System.out.println("Finished");
@@ -87,6 +94,7 @@ public class SoundRecorder {
      */
     public void startRecording(SoundRecorder recorder) {
         System.out.println("starting to record");
+        recordingNumber += 1;
 
         // creates a new thread that waits for a specified
         // of time before stopping

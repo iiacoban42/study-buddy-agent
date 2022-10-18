@@ -24,14 +24,10 @@ fun record(): SoundRecorder? {
     GlobalScope.async {
         println("Recording...")
 
-        println("async recorder is $recorder")
-
         recorder.startRecording(recorder)
 
         println("Done recording")
     }
-
-    println(recorder.toString())
 
     return recorder
 }
@@ -163,7 +159,7 @@ val AskQuestion: State = state(parent = Parent) {
 
         failedAttempts++
         if(failedAttempts < 3)
-            record()
+            recorder = record()
         when (failedAttempts) {
             1 -> furhat.ask("I didn't get that, sorry. Try again!")
             2 -> {
