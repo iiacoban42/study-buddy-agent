@@ -30,15 +30,15 @@ fun UserManager.notQuestioned(question: String) = list.filter {
     it.quiz.playing && !it.quiz.questionsAsked.contains(question)
 }
 
-fun UserManager.nextPlaying() : User {
-    val nextPlayer = list.filter {
-        it.quiz.playing && it != current
-    }.first()
-    if (nextPlayer == null) {
-        return current
-    }
-    else {
-        return nextPlayer
-    }
-}
+//fun UserManager.nextPlaying() : User {
+//    val nextPlayer = list.filter {
+//        it.quiz.playing && it != current
+//    }.first()
+//    if (nextPlayer == null) {
+//        return current
+//    }
+//    else {
+//        return nextPlayer
+//    }
+//}
 

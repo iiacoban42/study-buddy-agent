@@ -64,15 +64,14 @@ val Idle: State = state {
 
 val maxRounds = 5
 var rounds = 0
-var shouldChangeUser = true
 var playing = false
 
 fun QueryPerson(user: User) = state(parent = Parent) {
     onEntry {
         if (!user.quiz.played) {
-            furhat.ask("Do you want to play?")
+            furhat.ask("Do you want to learn about the solar system?")
         } else {
-            furhat.ask("Do you want to play again? Maybe you can beat your old score of ${user.quiz.lastScore}")
+            furhat.ask("Do you want to practice with some more questions? ")
         }
     }
 

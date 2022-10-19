@@ -12,10 +12,7 @@ val NewGame = state(parent = Parent) {
         playing = true
         rounds = 0
 
-        furhat.say("I will ask you $maxRounds multiple choice questions. And we'll see how many points you can get. ")
-        if (users.count > 1) {
-            furhat.say("If you answer wrong, the question will go over to the next person")
-        }
+        furhat.say("I will ask you $maxRounds multiple choice questions. And we'll see how many you get right. ")
 
         furhat.say("Alright, here we go!")
         QuestionSet.next()

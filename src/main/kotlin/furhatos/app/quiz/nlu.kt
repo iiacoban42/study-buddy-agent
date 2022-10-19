@@ -41,7 +41,7 @@ class RequestRepeatOptions : Intent() {
         return listOf(
                 "what are the options",
                 "can you repeat the options",
-                "what was the options"
+                "what were the options"
         )
     }
 }
@@ -49,7 +49,6 @@ class RequestRepeatOptions : Intent() {
 class AnswerOption : EnumEntity {
 
     var correct : Boolean = false
-
     // Every entity and intent needs an empty constructor.
     constructor() {
     }

@@ -6,7 +6,7 @@ import furhatos.app.quiz.RequestRepeatOptions
 import furhatos.app.quiz.RequestRepeatQuestion
 import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.questions.QuestionSet
-import furhatos.app.quiz.setting.nextPlaying
+//import furhatos.app.quiz.setting.nextPlaying
 import furhatos.app.quiz.setting.notQuestioned
 import furhatos.app.quiz.setting.playing
 import furhatos.app.quiz.setting.quiz
@@ -42,8 +42,9 @@ val AskQuestion: State = state(parent = Parent) {
             furhat.gesture(Gestures.Smile)
             users.current.quiz.score++
             random(
-                    { furhat.say("Great! That was the ${furhat.voice.emphasis("right")}  answer, you now have a score of ${users.current.quiz.score}") },
-                    { furhat.say("that was ${furhat.voice.emphasis("correct")}, you now have a score of ${users.current.quiz.score}") }
+                    { furhat.say("Great! That was the ${furhat.voice.emphasis("right")}  answer") },
+                    { furhat.say("That's indeed ${furhat.voice.emphasis("correct")}") },
+                    { furhat.say("That's ${furhat.voice.emphasis("right")}") }
             )
             /*
             If the user answers incorrect, we give another user the chance of answering if one is present in the game.
@@ -51,21 +52,28 @@ val AskQuestion: State = state(parent = Parent) {
              */
         } else {
             furhat.gesture(Gestures.BrowFrown)
-            furhat.say("Sorry, that was ${furhat.voice.emphasis("not")} correct")
 
+            random(
+                { furhat.say("Sorry, that was ${furhat.voice.emphasis("not")} the right answer") },
+                { furhat.say("Sorry, that was ${furhat.voice.emphasis("not")} correct") },
+                { furhat.say("Sorry, that was ${furhat.voice.emphasis("not")} right") }
+            )
+
+            val explanation = QuestionSet.current.explanation
+
+            furhat.say(explanation)
             // Keep track of what users answered what question so that we don't ask the same user
-            users.current.quiz.questionsAsked.add(QuestionSet.current.text)
-
-            /* Find another user that has not answered this question and if so, asks them.
-             For the flow of the skill, we will continue asking the new user the next question through the
-             shouldChangeUser = false flag.
-             */
-            val availableUsers = users.notQuestioned(QuestionSet.current.text)
-            if (!availableUsers.isEmpty()) {
-                furhat.attend(availableUsers.first())
-                shouldChangeUser = false
-                furhat.ask("Maybe you know the answer?")
-            }
+//            users.current.quiz.questionsAsked.add(QuestionSet.current.text)
+//
+//            /* Find another user that has not answered this question and if so, asks them.
+//             For the flow of the skill, we will continue asking the new user the next question through the
+//             shouldChangeUser = false flag.
+//             */
+//            val availableUsers = users.notQuestioned(QuestionSet.current.text)
+//            if (!availableUsers.isEmpty()) {
+//                furhat.attend(availableUsers.first())
+//                furhat.ask("Maybe you know the answer?")
+//            }
         }
 
         // Check if the game has ended and if not, goes to a new question
@@ -77,7 +85,7 @@ val AskQuestion: State = state(parent = Parent) {
         }
     }
 
-    // The users answers that they don't know
+    // The users answer that they don't know
     onResponse<DontKnow> {
         furhat.say("Too bad. Here comes the next question")
         goto(NewQuestion)
@@ -124,7 +132,6 @@ val AskQuestion: State = state(parent = Parent) {
             }
             else -> {
                 furhat.say("Still couldn't get that. Let's try a new question")
-                shouldChangeUser = false
                 goto(NewQuestion)
             }
         }
@@ -136,24 +143,7 @@ val NewQuestion = state(parent = Parent) {
         /*
             If more than one player, we determine what user to target next here, based on the shouldChangeUser boolean
          */
-        if (users.playing().count() > 1) {
-            if (shouldChangeUser) {
-                val nextUser = users.nextPlaying()
-                furhat.attend(nextUser)
-                random(
-                        { furhat.say("The next one is for you") },
-                        { furhat.say("For you now") },
-                        { furhat.say("Now for you") }
-                )
-            } else {
-                shouldChangeUser = true
-                random(
-                        { furhat.say("You get to continue") },
-                        { furhat.say("Next one coming up") },
-                        { furhat.say("Here's another one") }
-                )
-            }
-        }
+
         if (!users.current.isAttendingFurhat) {
             furhat.say {
                 random {
