@@ -20,7 +20,7 @@ val Idle: State = state {
           */
         users.interested().forEach {
             furhat.attend(it)
-            goto(QueryPerson(it))
+            goto(Start(it))
         }
         // Once no more user, start the game with all interested users
         if (users.playing().isNotEmpty()) {
@@ -37,7 +37,8 @@ val Idle: State = state {
         if (users.interested().count() == 1) {
             furhat.attend(it.id)
             furhat.say("Hello there")
-            goto(QueryPerson(it))
+            goto(Start(it))
+//            goto(QueryPerson(it))
         } else {
             furhat.glance(it.id, async=true)
         }

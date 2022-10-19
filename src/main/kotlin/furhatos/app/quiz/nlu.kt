@@ -1,9 +1,11 @@
 package furhatos.app.quiz
 
 import furhatos.app.quiz.questions.QuestionSet
+import furhatos.nlu.ComplexEnumEntity
 import furhatos.nlu.EnumEntity
 import furhatos.nlu.EnumItem
 import furhatos.nlu.Intent
+import furhatos.nlu.common.PersonName
 import furhatos.util.Language
 
 class DontKnow : Intent() {
@@ -63,4 +65,10 @@ class AnswerOption : EnumEntity {
         return QuestionSet.current.options;
     }
 
+}
+
+class MyNameIsResponse(val name: furhatos.nlu.common.PersonName = PersonName()) : ComplexEnumEntity() {
+    override fun getEnum(lang: Language): List<String> {
+        return listOf("Call me @name", "My name is @name", "I'm @name", "I am @name", "@name")
+    }
 }

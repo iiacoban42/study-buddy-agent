@@ -21,16 +21,14 @@ val NewGame = state(parent = Parent) {
     }
 }
 
-//val Lesson = state(parent = Parent) {
-//    onEntry {
-//        playing = true
-//        rounds = 0
-//
-//        furhat.say("")
-//
-//        furhat.say("Alright, here we go!")
-//        QuestionSet.next()
-//        furhat.attend(users.playing().first())
-//        goto(AskQuestion)
-//    }
-//}
+val Lesson = state(parent = Parent) {
+    onEntry {
+
+        furhat.say("")
+
+        furhat.say("Alright, here we go!")
+        QuestionSet.next()
+        furhat.attend(users.playing().first())
+        goto(AskQuestion)
+    }
+}
