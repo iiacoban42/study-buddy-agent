@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 public class SoundRecorder {
 
     // record duration, in milliseconds
-    static final long RECORD_TIME = 30000; // 30 sec
+    static final long RECORD_TIME = 15000; // 15 sec max time
 
     static int recordingNumber = 1;
 
@@ -30,7 +30,7 @@ public class SoundRecorder {
     AudioFormat getAudioFormat() {
         float sampleRate = 44100;
         int sampleSizeInBits = 16;
-        int channels = 2;
+        int channels = 1;
         boolean signed = true;
         boolean bigEndian = false;
         AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
