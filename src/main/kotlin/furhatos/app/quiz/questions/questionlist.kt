@@ -112,6 +112,82 @@ val questionsBlackHoles = mutableListOf(
                 alternatives = listOf(listOf("true", "that's true", "right", "that's right")),
                 explanation = "The term of black holes was coined by Robert H. Dicke in the early 1960s"
 
+        ),
+
+        Question("How is a black hole formed?",
+                answer = listOf("when a star explodes at the end of its life cycle", "when a star dies", "when a star explodes"),
+                alternatives = listOf(listOf("when the fabric of the universe tears", "when the fabric tears", "when the universe tears"),
+                        listOf("when a small planet explodes", "when a planet explodes", "a planet explodes"),
+                        listOf("they just appear", "just appear")),
+                explanation = "Stellar black holes form when the center of a very massive star collapses in upon itself. This collapse also causes a supernova, or an exploding star, that blasts part of the star into space."
+
+        ),
+
+        Question("Black holes cannot be seen because they don't reflect light.",
+                answer = listOf("true", "that's true", "right", "that's right"),
+                alternatives = listOf(listOf("false", "that's false", "wrong", "that's wrong")),
+                explanation = "Light cannot escape a black hole, its extreme gravity warps space around it, which allows light to \"echo,\" bending around the back of the object."
+
+        ),
+
+        Question("What surrounds a black hole?",
+                answer = listOf("space dust, stars and galaxies", "space dust", "stars", "galaxies"),
+                alternatives = listOf(listOf("a ring of bright light", "ring of light", "a ring of light", "light"),
+                        listOf("No one knows", "nobody knows", "we don't know"),
+                        listOf("tiny planets", "planets")),
+                explanation = "A black hole's gravity can sometimes pull off the outer gases of other stars and galaxies and grow a disk around itself."
+
+        ),
+        Question("What pulls objects into a black hole?",
+                answer = listOf("a strong gravitational force", "the gravitational force", "gravitational force", "gravity"),
+                alternatives = listOf(listOf("a tractor beam", "a beam", "beam"),
+                        listOf("objects just drift into it", "objects drifting into it", "object going towards it", "objects drifting towards it"),
+                        listOf("it doesn't", "it actually doesn't", "that doesn't happen")),
+                explanation = "The strong gravitational force pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space."
+
+        ),
+
+        Question("What is the area surrounding a black hole called?",
+                answer = listOf("event horizon"),
+                alternatives = listOf(listOf("light ring"),
+                        listOf("perimeter"),
+                        listOf("circumference")),
+                explanation = "A black hole's “surface”, called its event horizon, defines the boundary where the velocity needed to escape exceeds the speed of light, which is the speed limit of the cosmos."
+        ),
+
+        Question("What are the three sizes of black holes known as?",
+                answer = listOf("gargantuan, stellar and primordial"),
+                alternatives = listOf(listOf("small, huge, massive"),
+                        listOf("tiny, big, gigantic"),
+                        listOf("large, huge, massive")),
+                explanation = "The main three sizes of black holes are gargantuan, stellar and primordial."
+
+        ),
+
+        Question("How big can a black hole be?",
+                answer = listOf("the size of several million suns", "million suns", "a few million suns", "millions of suns"),
+                alternatives = listOf(listOf("the size of London", "size of London", "London", "about the size of London"),
+                        listOf("the size of Mars", "size of Mars", "Mars", "about the size of Mars"),
+                        listOf("the size of a football", "size of football", "football", "about the size of a football")),
+                explanation = "There is no theoretical upper limit to the mass of a black hole. However, astronomers have noted that the ultra-massive black holes never seem to exceed about 10 billion solar masses."
+
+        ),
+
+        Question("What is the centre of a black hole called?",
+                answer = listOf("Singularity"),
+                alternatives = listOf(listOf("Sauron"),
+                        listOf("Bullseye"),
+                        listOf("Centre point")),
+                explanation = "The singularity constitutes the center of a black hole, hidden by the object's “surface,” the event horizon."
+
+        ),
+
+        Question("According to scientists, how many black holes exist?",
+                answer = listOf("Billions"),
+                alternatives = listOf(listOf("Millions"),
+                        listOf("Thousands"),
+                        listOf("Hundreds")),
+                explanation = "Scientists estimate that there are as many as ten million to a billion such black holes in the Milky Way alone."
         )
 )
 
