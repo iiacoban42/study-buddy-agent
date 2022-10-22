@@ -103,10 +103,7 @@ fun QueryPerson(user: User) = state(parent = Parent) {
     }
 
     onNoResponse {
-        random(
-            { furhat.say("Too slow! Here comes the next question") },
-            { furhat.say("A bit too slow amigo! Get ready for the next question") }
-        )
+        furhat.say("Sorry I didn't get that")
         reentry()
     }
 

@@ -38,6 +38,8 @@ val EndGame: State = state(parent = Parent) {
             it.quiz.lastScore = it.quiz.score
         }
 
+
+
         delay(1000)
 
         goto(Idle)
