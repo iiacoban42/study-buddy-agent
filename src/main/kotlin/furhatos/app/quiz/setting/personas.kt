@@ -24,7 +24,7 @@ fun FlowControlRunner.activate(persona: Persona) {
 }
 
 val quizPersona = Persona(
-        name = "Quizmaster",
+        name = "Space Guru",
         face = listOf("Alex", "default"),
         voice = listOf(PollyNeuralVoice.Joanna())
 )

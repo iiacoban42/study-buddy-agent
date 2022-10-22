@@ -1,10 +1,10 @@
 package furhatos.app.quiz.flow
 
-import furhatos.app.quiz.RequestRules
+import furhatos.app.quiz.nlu.RequestRules
 import furhatos.app.quiz.flow.main.Idle
 import furhatos.app.quiz.flow.main.NewQuestion
 import furhatos.app.quiz.flow.main.maxRounds
-import furhatos.app.quiz.setting.nextPlaying
+//import furhatos.app.quiz.setting.nextPlaying
 import furhatos.app.quiz.setting.playing
 import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
@@ -34,7 +34,7 @@ val Parent: State = state {
         if (users.current?.id == it.id) {
             furhat.stopSpeaking()
             if (users.playing().count() > 0) {
-                furhat.attend(users.nextPlaying())
+//                furhat.attend(users.nextPlaying())
                 goto(NewQuestion)
             } else {
                 goto(Idle)

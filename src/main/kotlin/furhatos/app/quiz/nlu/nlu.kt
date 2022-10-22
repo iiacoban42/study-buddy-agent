@@ -1,10 +1,33 @@
-package furhatos.app.quiz
+package furhatos.app.quiz.nlu
 
 import furhatos.app.quiz.questions.QuestionSet
+import furhatos.nlu.ComplexEnumEntity
 import furhatos.nlu.EnumEntity
 import furhatos.nlu.EnumItem
 import furhatos.nlu.Intent
+import furhatos.nlu.common.PersonName
 import furhatos.util.Language
+
+class Topic() : EnumEntity()
+
+const val BLACK_HOLES = "blackHoles"
+const val SOLAR_SYSTEM = "solarSystem"
+const val SPACE_EXPLORATION = "spaceExploration"
+fun parseTopic(topic: Topic?): String? {
+    if (topic == null) {
+        return null;
+    }
+    val value = topic.value;
+    if (value?.contains("black hole", ignoreCase=true) == true) {
+        return BLACK_HOLES
+    } else if (value?.contains("solar system", ignoreCase=true) == true) {
+        return SOLAR_SYSTEM
+    } else if (value?.contains("space exploration", ignoreCase=true) == true) {
+        return SPACE_EXPLORATION
+    }
+
+    return null;
+}
 
 class DontKnow : Intent() {
     override fun getExamples(lang: Language): List<String> {
@@ -41,7 +64,7 @@ class RequestRepeatOptions : Intent() {
         return listOf(
                 "what are the options",
                 "can you repeat the options",
-                "what was the options"
+                "what were the options"
         )
     }
 }
@@ -49,7 +72,6 @@ class RequestRepeatOptions : Intent() {
 class AnswerOption : EnumEntity {
 
     var correct : Boolean = false
-
     // Every entity and intent needs an empty constructor.
     constructor() {
     }
@@ -64,4 +86,17 @@ class AnswerOption : EnumEntity {
         return QuestionSet.current.options;
     }
 
+}
+
+
+class SelectTopic(val topic: Topic? = null) : ComplexEnumEntity() {
+    override fun getEnum(lang: Language): List<String> {
+        return listOf("@topic")
+    }
+}
+
+class MyNameIsResponse(val name: furhatos.nlu.common.PersonName = PersonName()) : ComplexEnumEntity() {
+    override fun getEnum(lang: Language): List<String> {
+        return listOf("Call me @name", "My name is @name", "I'm @name", "I am @name", "@name")
+    }
 }

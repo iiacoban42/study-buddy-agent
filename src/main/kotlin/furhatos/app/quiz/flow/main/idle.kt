@@ -1,6 +1,9 @@
 package furhatos.app.quiz.flow.main
 
+import furhatos.app.quiz.*
 import furhatos.app.quiz.flow.Parent
+import furhatos.app.quiz.nlu.*
+import furhatos.app.quiz.questions.*
 import furhatos.app.quiz.setting.interested
 import furhatos.app.quiz.setting.playing
 import furhatos.app.quiz.setting.quiz
@@ -8,6 +11,7 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 import furhatos.records.User
+import java.util.*
 
 val Idle: State = state {
     onEntry {
@@ -20,13 +24,14 @@ val Idle: State = state {
           */
         users.interested().forEach {
             furhat.attend(it)
-            goto(QueryPerson(it))
+            goto(Start(it))
         }
         // Once no more user, start the game with all interested users
         if (users.playing().isNotEmpty()) {
             furhat.attendAll()
             goto(NewGame)
         }
+
     }
 
     onUserEnter(instant = true) {
@@ -37,7 +42,8 @@ val Idle: State = state {
         if (users.interested().count() == 1) {
             furhat.attend(it.id)
             furhat.say("Hello there")
-            goto(QueryPerson(it))
+            goto(Start(it))
+//            goto(QueryPerson(it))
         } else {
             furhat.glance(it.id, async=true)
         }
@@ -64,15 +70,14 @@ val Idle: State = state {
 
 val maxRounds = 5
 var rounds = 0
-var shouldChangeUser = true
 var playing = false
 
 fun QueryPerson(user: User) = state(parent = Parent) {
     onEntry {
         if (!user.quiz.played) {
-            furhat.ask("Do you want to play?")
+            furhat.ask("Do you want to learn about the solar system? We could also talk about black holes and space exploration.")
         } else {
-            furhat.ask("Do you want to play again? Maybe you can beat your old score of ${user.quiz.lastScore}")
+            furhat.ask("Do you want to practice with some more questions? ")
         }
     }
 
@@ -86,5 +91,50 @@ fun QueryPerson(user: User) = state(parent = Parent) {
         user.quiz.interested = false
         furhat.say("oh well")
         goto(Idle)
+    }
+
+    onResponse<SelectTopic> {
+        val topic = parseTopic(it.intent.topic)
+        user.quiz.playing = true
+        if(topic == null){
+            furhat.say("I can't teach you that at the moment, but I'll let you know when I'll learn it myself.")
+            reentry()
+        }else {
+            user.quiz.selectedTopic = topic
+            goto(Lesson(topic))
+        }
+    }
+
+    onNoResponse {
+        furhat.say("Sorry I didn't get that")
+        reentry()
+    }
+
+}
+
+
+fun Lesson(topic: String) = state(parent = Parent) {
+    onEntry {
+
+        if (topic == BLACK_HOLES){
+            questions = questionsBlackHoles
+            furhat.say("You want to know about black holes")
+        }
+        else if (topic == SOLAR_SYSTEM){
+            questions = questionsSolarSystem
+            furhat.say("You want to know about the solar system")
+        }
+        else if (topic == SPACE_EXPLORATION){
+            questions = questionsSpaceExploration
+            furhat.say("You want to know about space exploration")
+        }
+
+        furhat.say("Alright, here we go!")
+
+        println("idle $questions")
+
+        QuestionSet.next()
+        furhat.attend(users.playing().first())
+        goto(AskQuestion)
     }
 }

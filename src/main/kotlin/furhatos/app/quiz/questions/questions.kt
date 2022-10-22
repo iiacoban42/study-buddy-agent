@@ -1,6 +1,6 @@
 package furhatos.app.quiz.questions
 
-import furhatos.app.quiz.AnswerOption
+import furhatos.app.quiz.nlu.AnswerOption
 import furhatos.nlu.EnumItem
 import furhatos.nlu.TextBuilder
 import java.util.*
@@ -8,17 +8,17 @@ import java.util.*
 object QuestionSet {
 
     var count : Int = 0
-    var current: Question = questionsEnglish[Random().nextInt(questionsEnglish.lastIndex)]
+    var current: Question = questions[Random().nextInt(questions.lastIndex)]
 
     init {
-        questionsEnglish.shuffle()
+        questions.shuffle()
     }
 
     fun next() {
         count++
-        if (count >= questionsEnglish.size)
+        if (count >= questions.size)
             count = 0
-        current = questionsEnglish[count]
+        current = questions[count]
         AnswerOption().forget()
     }
 
@@ -30,15 +30,19 @@ object QuestionSet {
  * @answer : A list containing the correct answer to the question, followed by alternative pronunciations of the correct answer
  * @alternatives A list, containing lists of other (wrong) answers. Every other answer is also followed by alternative pronunciations of the correct answer.
  */
-class Question(val text: String, answer: List<String>, alternatives: List<List<String>>) {
+class Question(val text: String, answer: List<String>, alternatives: List<List<String>>, explanation: String) {
     //All options, used to prime the NLU
     var options : MutableList<EnumItem> = mutableListOf()
     //Only the first option of the answers, these are correctly spelled, and not alternative.
     var primeoptions : MutableList<EnumItem> = mutableListOf()
 
+    var explanation: String = ""
+
     //init loads the first item of the list into primeoptions
     //And loads everything into options
     init {
+
+        this.explanation = explanation
         primeoptions.add(EnumItem(AnswerOption(true, answer.first()), answer.first()))
         answer.forEach {
             options.add(EnumItem(AnswerOption(true, it), it))
@@ -53,6 +57,7 @@ class Question(val text: String, answer: List<String>, alternatives: List<List<S
 
         options.shuffle()
         primeoptions.shuffle()
+
     }
 
     //Returns the well formatted answer options
