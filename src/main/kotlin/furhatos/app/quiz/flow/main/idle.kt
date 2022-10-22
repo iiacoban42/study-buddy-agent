@@ -1,6 +1,8 @@
 package furhatos.app.quiz.flow.main
 
+import furhatos.app.quiz.*
 import furhatos.app.quiz.flow.Parent
+import furhatos.app.quiz.questions.*
 import furhatos.app.quiz.setting.interested
 import furhatos.app.quiz.setting.playing
 import furhatos.app.quiz.setting.quiz
@@ -27,6 +29,7 @@ val Idle: State = state {
             furhat.attendAll()
             goto(NewGame)
         }
+
     }
 
     onUserEnter(instant = true) {
@@ -70,7 +73,7 @@ var playing = false
 fun QueryPerson(user: User) = state(parent = Parent) {
     onEntry {
         if (!user.quiz.played) {
-            furhat.ask("Do you want to learn about the solar system?")
+            furhat.ask("Do you want to learn about the solar system? We could also talk about black holes and space exploration.")
         } else {
             furhat.ask("Do you want to practice with some more questions? ")
         }
@@ -86,5 +89,53 @@ fun QueryPerson(user: User) = state(parent = Parent) {
         user.quiz.interested = false
         furhat.say("oh well")
         goto(Idle)
+    }
+
+    onResponse<SelectTopic> {
+        val topic = parseTopic(it.intent.topic)
+        if(topic == null){
+            furhat.say("I can't teach you that at the moment, but I'll let you know when I'll learn it myself.")
+            reentry()
+        }else {
+            user.quiz.selectedTopic = topic
+            goto(Lesson(topic))
+        }
+    }
+
+    onNoResponse {
+        random(
+            { furhat.say("Too slow! Here comes the next question") },
+            { furhat.say("A bit too slow amigo! Get ready for the next question") }
+        )
+        reentry()
+    }
+
+}
+
+
+fun Lesson(topic: String) = state(parent = Parent) {
+    onEntry {
+
+        furhat.say("Alright, here we go!")
+
+        if (topic == BLACK_HOLES){
+            questions = questionsBlackHoles
+            furhat.say("You want to know about black holes")
+        }
+        else if (topic == SOLAR_SYSTEM){
+            questions = questionsSolarSystem
+            furhat.say("You want to know about the solar system")
+        }
+        else if (topic == SPACE_EXPLORATION){
+            questions = questionsSpaceExploration
+            furhat.say("You want to know about space exploration")
+        }
+
+        furhat.say("")
+
+
+        QuestionSet.next()
+        furhat.attend(users.playing().first())
+        goto(AskQuestion)
     }
 }

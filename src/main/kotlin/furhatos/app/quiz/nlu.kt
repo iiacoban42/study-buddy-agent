@@ -8,6 +8,27 @@ import furhatos.nlu.Intent
 import furhatos.nlu.common.PersonName
 import furhatos.util.Language
 
+class Topic() : EnumEntity()
+
+const val BLACK_HOLES = "blackHoles"
+const val SOLAR_SYSTEM = "solarSystem"
+const val SPACE_EXPLORATION = "spaceExploration"
+fun parseTopic(topic: Topic?): String? {
+    if (topic == null) {
+        return null;
+    }
+    val value = topic.value;
+    if (value?.contains("black hole", ignoreCase=true) == true) {
+        return BLACK_HOLES
+    } else if (value?.contains("solar system", ignoreCase=true) == true) {
+        return SOLAR_SYSTEM
+    } else if (value?.contains("space exploration", ignoreCase=true) == true) {
+        return SPACE_EXPLORATION
+    }
+
+    return null;
+}
+
 class DontKnow : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
@@ -65,6 +86,13 @@ class AnswerOption : EnumEntity {
         return QuestionSet.current.options;
     }
 
+}
+
+
+class SelectTopic(val topic: Topic? = null) : ComplexEnumEntity() {
+    override fun getEnum(lang: Language): List<String> {
+        return listOf("@topic")
+    }
 }
 
 class MyNameIsResponse(val name: furhatos.nlu.common.PersonName = PersonName()) : ComplexEnumEntity() {

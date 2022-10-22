@@ -1,14 +1,12 @@
 package furhatos.app.quiz.flow.main
 
+//import furhatos.app.quiz.setting.nextPlaying
 import furhatos.app.quiz.AnswerOption
 import furhatos.app.quiz.DontKnow
 import furhatos.app.quiz.RequestRepeatOptions
 import furhatos.app.quiz.RequestRepeatQuestion
 import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.questions.QuestionSet
-//import furhatos.app.quiz.setting.nextPlaying
-import furhatos.app.quiz.setting.notQuestioned
-import furhatos.app.quiz.setting.playing
 import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
@@ -17,9 +15,11 @@ import furhatos.nlu.common.RequestRepeat
 val AskQuestion: State = state(parent = Parent) {
     var failedAttempts = 0
 
+
+
     onEntry {
         failedAttempts = 0
-
+        users.current.quiz.selectedTopic
         // Set speech rec phrases based on the current question's answers
         furhat.setSpeechRecPhrases(QuestionSet.current.speechPhrases)
 

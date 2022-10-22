@@ -8,17 +8,17 @@ import java.util.*
 object QuestionSet {
 
     var count : Int = 0
-    var current: Question = questionsEnglish[Random().nextInt(questionsEnglish.lastIndex)]
+    var current: Question = questions[Random().nextInt(questions.lastIndex)]
 
     init {
-        questionsEnglish.shuffle()
+        questions.shuffle()
     }
 
     fun next() {
         count++
-        if (count >= questionsEnglish.size)
+        if (count >= questions.size)
             count = 0
-        current = questionsEnglish[count]
+        current = questions[count]
         AnswerOption().forget()
     }
 
