@@ -131,8 +131,6 @@ fun Lesson(topic: String) = state(parent = Parent) {
 
         furhat.say("Alright, here we go!")
 
-        println("idle $questions")
-
         QuestionSet.next()
         furhat.attend(users.playing().first())
         goto(AskQuestion)

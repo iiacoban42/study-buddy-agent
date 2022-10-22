@@ -1,23 +1,27 @@
 package furhatos.app.quiz.flow.main
 
 //import furhatos.app.quiz.setting.nextPlaying
+import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.nlu.AnswerOption
 import furhatos.app.quiz.nlu.DontKnow
 import furhatos.app.quiz.nlu.RequestRepeatOptions
 import furhatos.app.quiz.nlu.RequestRepeatQuestion
-import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.questions.QuestionSet
 import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.RequestRepeat
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
+import org.zeromq.SocketType
+import org.zeromq.ZMQ
 import recording.SoundRecorder
 
-fun record(): SoundRecorder? {
-    val sound = SoundRecorder()
-    var recorder = sound.initialize()
+fun record(id: String): SoundRecorder? {
+    val sound = SoundRecorder("-1")
+    var recorder = sound.initialize(id)
 
     GlobalScope.async {
         println("Recording...")
@@ -35,7 +39,29 @@ var recorder: SoundRecorder? = null
 val AskQuestion: State = state(parent = Parent) {
     var failedAttempts = 0
 
+    val context = ZMQ.context(1)
+    val port = "5657"
+    val socket = context.socket(SocketType.SUB)
+    socket.isConflate = true
+    socket.connect("tcp://127.0.0.1:$port")
+    socket.subscribe("123")
 
+    GlobalScope.async {
+        while (true) {
+            println("Checking received messages...")
+            try {
+                val rawRequest = socket.recv()
+                val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
+                println("pulled some data : $cleanRequest")
+            } catch (e: Exception) {
+                println(e)
+            }
+
+            withContext(Dispatchers.IO) {
+                Thread.sleep(5_000)
+            }
+        }
+    }
 
     onEntry {
         recorder?.finish()
@@ -45,7 +71,7 @@ val AskQuestion: State = state(parent = Parent) {
         // Set speech rec phrases based on the current question's answers
         furhat.setSpeechRecPhrases(QuestionSet.current.speechPhrases)
 
-        recorder = record()
+        recorder = record(QuestionSet.current.id)
 
         // Ask the question followed by the options
         furhat.ask(QuestionSet.current.text + " " + QuestionSet.current.getOptionsString())
@@ -55,7 +81,7 @@ val AskQuestion: State = state(parent = Parent) {
     onReentry {
         recorder?.finish()
 
-        recorder = record()
+        recorder = record(QuestionSet.current.id)
 
         failedAttempts = 0
         furhat.ask("The question was, ${QuestionSet.current.text} ${QuestionSet.current.getOptionsString()}")
@@ -92,19 +118,12 @@ val AskQuestion: State = state(parent = Parent) {
             val explanation = QuestionSet.current.explanation
 
             furhat.say(explanation)
-            // Keep track of what users answered what question so that we don't ask the same user
-//            users.current.quiz.questionsAsked.add(QuestionSet.current.text)
-//
-//            /* Find another user that has not answered this question and if so, asks them.
-//             For the flow of the skill, we will continue asking the new user the next question through the
-//             shouldChangeUser = false flag.
-//             */
-//            val availableUsers = users.notQuestioned(QuestionSet.current.text)
-//            if (!availableUsers.isEmpty()) {
-//                furhat.attend(availableUsers.first())
-//                furhat.ask("Maybe you know the answer?")
-//            }
         }
+
+//        println("The question was, ${QuestionSet.current.text}")
+//        val rawRequest = socket.recv()
+//        val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
+//        println("pulled some data : $cleanRequest")
 
         // Check if the game has ended and if not, goes to a new question
         if (++rounds >= maxRounds) {
@@ -167,7 +186,7 @@ val AskQuestion: State = state(parent = Parent) {
 
         failedAttempts++
         if(failedAttempts < 3)
-            recorder = record()
+            recorder = record(QuestionSet.current.id)
         when (failedAttempts) {
             1 -> furhat.ask("I didn't get that, sorry. Try again!")
             2 -> {

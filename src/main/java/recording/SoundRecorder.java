@@ -7,22 +7,30 @@ import java.nio.file.Paths;
 public class SoundRecorder {
 
     // record duration, in milliseconds
-    static final long RECORD_TIME = 15000; // 15 sec max time
+    static final long RECORD_TIME = 20000; // 20 sec max time
 
-    static int recordingNumber = 1;
+//    static int recordingNumber = 1;
+    private String id;
 
-    String fileName = String.valueOf(recordingNumber);
+    String fileName;
 
-    String directoryPath = Paths.get("").toAbsolutePath() + "\\src\\main\\java\\recording\\";
+    String directoryPath;
 
     // path of the wav file
-    File wavFile = new File(directoryPath + fileName + ".wav");
+    File wavFile;
 
     // format of audio file
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
 
     // the line (microphone) from which audio data is captured
     TargetDataLine line;
+
+    public SoundRecorder(String id) {
+        this.id = id;
+        this.fileName = String.valueOf(id);
+        this.directoryPath = Paths.get("").toAbsolutePath() + "\\src\\main\\java\\recording\\";
+        this.wavFile = new File(directoryPath + fileName + ".wav");
+    }
 
     /**
      * Defines an audio format
@@ -82,8 +90,8 @@ public class SoundRecorder {
         System.out.println("Finished");
     }
 
-    public SoundRecorder initialize(){
-        SoundRecorder recorder = new SoundRecorder();
+    public SoundRecorder initialize(String id){
+        SoundRecorder recorder = new SoundRecorder(id);
         return recorder;
     }
 
@@ -94,7 +102,6 @@ public class SoundRecorder {
      */
     public void startRecording(SoundRecorder recorder) {
         System.out.println("starting to record");
-        recordingNumber += 1;
 
         // creates a new thread that waits for a specified
         // of time before stopping
