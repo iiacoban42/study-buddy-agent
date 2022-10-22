@@ -2,6 +2,7 @@ package furhatos.app.quiz.flow.main
 
 import furhatos.app.quiz.*
 import furhatos.app.quiz.flow.Parent
+import furhatos.app.quiz.nlu.*
 import furhatos.app.quiz.questions.*
 import furhatos.app.quiz.setting.interested
 import furhatos.app.quiz.setting.playing
@@ -10,6 +11,7 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 import furhatos.records.User
+import java.util.*
 
 val Idle: State = state {
     onEntry {
@@ -93,6 +95,7 @@ fun QueryPerson(user: User) = state(parent = Parent) {
 
     onResponse<SelectTopic> {
         val topic = parseTopic(it.intent.topic)
+        user.quiz.playing = true
         if(topic == null){
             furhat.say("I can't teach you that at the moment, but I'll let you know when I'll learn it myself.")
             reentry()
@@ -113,8 +116,6 @@ fun QueryPerson(user: User) = state(parent = Parent) {
 fun Lesson(topic: String) = state(parent = Parent) {
     onEntry {
 
-        furhat.say("Alright, here we go!")
-
         if (topic == BLACK_HOLES){
             questions = questionsBlackHoles
             furhat.say("You want to know about black holes")
@@ -128,8 +129,9 @@ fun Lesson(topic: String) = state(parent = Parent) {
             furhat.say("You want to know about space exploration")
         }
 
-        furhat.say("")
+        furhat.say("Alright, here we go!")
 
+        println("idle $questions")
 
         QuestionSet.next()
         furhat.attend(users.playing().first())

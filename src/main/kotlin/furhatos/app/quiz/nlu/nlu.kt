@@ -1,4 +1,4 @@
-package furhatos.app.quiz
+package furhatos.app.quiz.nlu
 
 import furhatos.app.quiz.questions.QuestionSet
 import furhatos.nlu.ComplexEnumEntity

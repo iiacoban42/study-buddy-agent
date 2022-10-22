@@ -107,13 +107,13 @@ val questionsSolarSystem = mutableListOf(
 
 val questionsBlackHoles = mutableListOf(
 
-        Question("Albert Einstein came up with the term 'black hole'. True or false?",
+        Question("Albert Einstein came up with the term 'black hole'.",
                 answer = listOf("false", "that's false", "wrong", "that's wrong"),
                 alternatives = listOf(listOf("true", "that's true", "right", "that's right")),
-                explanation = "The term of black holes was"
+                explanation = "The term of black holes was coined by Robert H. Dicke in the early 1960s"
 
-                )
         )
+)
 
 val questionsSpaceExploration = mutableListOf(
 
@@ -123,5 +123,5 @@ val questionsSpaceExploration = mutableListOf(
                         listOf("1980"),
                         listOf("1965")),
                 explanation = "Apollo 11 (July 16–24, 1969) was the American spaceflight that first landed humans on the Moon."
-                )
         )
+)

@@ -1,6 +1,6 @@
 package furhatos.app.quiz.flow.main
 
-import furhatos.app.quiz.MyNameIsResponse
+import furhatos.app.quiz.nlu.MyNameIsResponse
 import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*

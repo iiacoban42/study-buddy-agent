@@ -1,6 +1,6 @@
 package furhatos.app.quiz.flow
 
-import furhatos.app.quiz.RequestRules
+import furhatos.app.quiz.nlu.RequestRules
 import furhatos.app.quiz.flow.main.Idle
 import furhatos.app.quiz.flow.main.NewQuestion
 import furhatos.app.quiz.flow.main.maxRounds

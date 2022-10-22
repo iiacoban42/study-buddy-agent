@@ -1,10 +1,10 @@
 package furhatos.app.quiz.flow.main
 
 //import furhatos.app.quiz.setting.nextPlaying
-import furhatos.app.quiz.AnswerOption
-import furhatos.app.quiz.DontKnow
-import furhatos.app.quiz.RequestRepeatOptions
-import furhatos.app.quiz.RequestRepeatQuestion
+import furhatos.app.quiz.nlu.AnswerOption
+import furhatos.app.quiz.nlu.DontKnow
+import furhatos.app.quiz.nlu.RequestRepeatOptions
+import furhatos.app.quiz.nlu.RequestRepeatQuestion
 import furhatos.app.quiz.flow.Parent
 import furhatos.app.quiz.questions.QuestionSet
 import furhatos.app.quiz.setting.quiz

@@ -1,6 +1,6 @@
 package furhatos.app.quiz.questions
 
-import furhatos.app.quiz.AnswerOption
+import furhatos.app.quiz.nlu.AnswerOption
 import furhatos.nlu.EnumItem
 import furhatos.nlu.TextBuilder
 import java.util.*
