@@ -1,7 +1,8 @@
 package furhatos.app.quiz.flow.main
 
-import furhatos.app.quiz.MyNameIsResponse
+import furhatos.app.quiz.nlu.MyNameIsResponse
 import furhatos.app.quiz.flow.Parent
+import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
 import furhatos.records.User
 import org.json.JSONObject
@@ -27,7 +28,6 @@ fun Start(user: User) = state(parent = Parent)  {
         val name = it.intent.name
         furhat.say("Hello $name!")
 
-
         val myfile = File(storage)
         val fileText = File(storage).readText(Charsets.UTF_8)
 
@@ -40,6 +40,7 @@ fun Start(user: User) = state(parent = Parent)  {
         else{
             furhat.say("Welcome back!")
         }
+        user.quiz.userName = name.toString()
 
         myfile.writeText(data.toString())
 

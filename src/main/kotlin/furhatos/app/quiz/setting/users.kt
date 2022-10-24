@@ -6,7 +6,8 @@ import furhatos.skills.UserManager
 
 // User variables
 class SkillData(
-        var name : String = "",
+        var userName : String = "",
+        var selectedTopic: String = "",
         var score : Int = 0,
         var lastScore : Int = 0,
         var interested : Boolean = true,

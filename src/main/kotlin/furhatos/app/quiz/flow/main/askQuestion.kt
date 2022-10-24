@@ -1,27 +1,77 @@
 package furhatos.app.quiz.flow.main
 
-import furhatos.app.quiz.AnswerOption
-import furhatos.app.quiz.DontKnow
-import furhatos.app.quiz.RequestRepeatOptions
-import furhatos.app.quiz.RequestRepeatQuestion
-import furhatos.app.quiz.flow.Parent
-import furhatos.app.quiz.questions.QuestionSet
 //import furhatos.app.quiz.setting.nextPlaying
-import furhatos.app.quiz.setting.notQuestioned
-import furhatos.app.quiz.setting.playing
+import furhatos.app.quiz.flow.Parent
+import furhatos.app.quiz.nlu.AnswerOption
+import furhatos.app.quiz.nlu.DontKnow
+import furhatos.app.quiz.nlu.RequestRepeatOptions
+import furhatos.app.quiz.nlu.RequestRepeatQuestion
+import furhatos.app.quiz.questions.QuestionSet
 import furhatos.app.quiz.setting.quiz
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.RequestRepeat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
+import org.zeromq.SocketType
+import org.zeromq.ZMQ
+import recording.SoundRecorder
+
+fun record(id: String): SoundRecorder? {
+    val sound = SoundRecorder("-1")
+    var recorder = sound.initialize(id)
+
+    GlobalScope.async {
+        println("Recording...")
+
+        recorder.startRecording(recorder)
+
+        println("Done recording")
+    }
+
+    return recorder
+}
+
+var recorder: SoundRecorder? = null
 
 val AskQuestion: State = state(parent = Parent) {
     var failedAttempts = 0
 
-    onEntry {
-        failedAttempts = 0
+    val context = ZMQ.context(1)
+    val port = "5657"
+    val socket = context.socket(SocketType.SUB)
+    socket.isConflate = true
+    socket.connect("tcp://127.0.0.1:$port")
+    socket.subscribe("123")
 
+    GlobalScope.async {
+        while (true) {
+            println("Checking received messages...")
+            try {
+                val rawRequest = socket.recv()
+                val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
+                println("pulled some data : $cleanRequest")
+            } catch (e: Exception) {
+                println(e)
+            }
+
+            withContext(Dispatchers.IO) {
+                Thread.sleep(5_000)
+            }
+        }
+    }
+
+    onEntry {
+        recorder?.finish()
+
+        failedAttempts = 0
+        users.current.quiz.selectedTopic
         // Set speech rec phrases based on the current question's answers
         furhat.setSpeechRecPhrases(QuestionSet.current.speechPhrases)
+
+        recorder = record(QuestionSet.current.id)
 
         // Ask the question followed by the options
         furhat.ask(QuestionSet.current.text + " " + QuestionSet.current.getOptionsString())
@@ -29,12 +79,18 @@ val AskQuestion: State = state(parent = Parent) {
 
     // Here we re-state the question
     onReentry {
+        recorder?.finish()
+
+        recorder = record(QuestionSet.current.id)
+
         failedAttempts = 0
         furhat.ask("The question was, ${QuestionSet.current.text} ${QuestionSet.current.getOptionsString()}")
     }
 
     // User is answering with any of the alternatives
     onResponse<AnswerOption> {
+        recorder?.finish()
+
         val answer = it.intent
 
         // If the user answers correct, we up the user's score and congratulates the user
@@ -62,19 +118,12 @@ val AskQuestion: State = state(parent = Parent) {
             val explanation = QuestionSet.current.explanation
 
             furhat.say(explanation)
-            // Keep track of what users answered what question so that we don't ask the same user
-//            users.current.quiz.questionsAsked.add(QuestionSet.current.text)
-//
-//            /* Find another user that has not answered this question and if so, asks them.
-//             For the flow of the skill, we will continue asking the new user the next question through the
-//             shouldChangeUser = false flag.
-//             */
-//            val availableUsers = users.notQuestioned(QuestionSet.current.text)
-//            if (!availableUsers.isEmpty()) {
-//                furhat.attend(availableUsers.first())
-//                furhat.ask("Maybe you know the answer?")
-//            }
         }
+
+//        println("The question was, ${QuestionSet.current.text}")
+//        val rawRequest = socket.recv()
+//        val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
+//        println("pulled some data : $cleanRequest")
 
         // Check if the game has ended and if not, goes to a new question
         if (++rounds >= maxRounds) {
@@ -87,21 +136,29 @@ val AskQuestion: State = state(parent = Parent) {
 
     // The users answer that they don't know
     onResponse<DontKnow> {
+        recorder?.finish()
+
         furhat.say("Too bad. Here comes the next question")
         goto(NewQuestion)
     }
 
     onResponse<RequestRepeat> {
+        recorder?.finish()
+
         reentry()
     }
 
     onResponse<RequestRepeatQuestion> {
+        recorder?.finish()
+
         furhat.gesture(Gestures.BrowRaise)
         furhat.ask(QuestionSet.current.text)
     }
 
     // The user wants to hear the options again
     onResponse<RequestRepeatOptions> {
+        recorder?.finish()
+
         furhat.gesture(Gestures.Surprise)
         random(
                 { furhat.ask("They are ${QuestionSet.current.getOptionsString()}") },
@@ -111,6 +168,8 @@ val AskQuestion: State = state(parent = Parent) {
 
     // If we don't get any response, we assume the user was too slow
     onNoResponse {
+        recorder?.finish()
+
         random(
                 { furhat.say("Too slow! Here comes the next question") },
                 { furhat.say("A bit too slow amigo! Get ready for the next question") }
@@ -123,7 +182,11 @@ val AskQuestion: State = state(parent = Parent) {
         finally moving on if we still don't get it.
      */
     onResponse {
+        recorder?.finish()
+
         failedAttempts++
+        if(failedAttempts < 3)
+            recorder = record(QuestionSet.current.id)
         when (failedAttempts) {
             1 -> furhat.ask("I didn't get that, sorry. Try again!")
             2 -> {
