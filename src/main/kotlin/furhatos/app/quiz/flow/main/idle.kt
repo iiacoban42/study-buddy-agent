@@ -76,48 +76,48 @@ fun QueryPerson(user: User) = state(parent = Parent) {
     onEntry {
         val userName = user.quiz.userName
 
-        val a = mem.getPersonMemory(userName)
+//        val a = mem.getPersonMemory(userName)
 
-        if (a.isNullOrEmpty()){
-            furhat.ask("What would you like to know about space? My favourite topic is the solar system, but we can talk about black holes or space exploration if you want.")
-        }
-        else{
-            val topic = mem.getPersonTopic(userName)
-
-            user.quiz.playing = true
-
-            if (topic == BLACK_HOLES){
-                questions = questionsBlackHoles
-            }
-            else if (topic == SOLAR_SYSTEM){
-                questions = questionsSolarSystem
-            }
-            else if (topic == SPACE_EXPLORATION){
-                questions = questionsSpaceExploration
-            }
-
-            val score = mem.getPersonScore(userName)
-
-            val grade = 10 * score / maxRounds
-
-            if(grade < 5)
-
-                furhat.say("Oh, I remember that you struggled with the topic of $topic last time. Let's try again.")
-
-            else if(grade < 8)
-
-                furhat.say("Oh, I remember that you enjoyed the topic of $topic last time. Let's see if you can get a perfect score this time.")
-
-            else if(grade <= 10)
-
-                furhat.say("Oh, I remember that you did really well with the topic of $topic last time. Let's see if you can get a perfect score this time too.")
-
-            furhat.say("Alright, here we go!")
-
-            QuestionSet.next()
-            furhat.attend(users.playing().first())
-            goto(AskQuestion)
-        }
+//        if (a.isNullOrEmpty()){
+        furhat.ask("What would you like to know about space? My favourite topic is the solar system, but we can talk about black holes or space exploration if you want.")
+//        }
+//        else{
+//            val topic = mem.getPersonTopic(userName)
+//
+//            user.quiz.playing = true
+//
+//            if (topic == BLACK_HOLES){
+//                questions = questionsBlackHoles
+//            }
+//            else if (topic == SOLAR_SYSTEM){
+//                questions = questionsSolarSystem
+//            }
+//            else if (topic == SPACE_EXPLORATION){
+//                questions = questionsSpaceExploration
+//            }
+//
+//            val score = mem.getPersonScore(userName)
+//
+//            val grade = 10 * score / maxRounds
+//
+//            if(grade < 5)
+//
+//                furhat.say("Oh, I remember that you struggled with the topic of $topic last time. Let's try again.")
+//
+//            else if(grade < 8)
+//
+//                furhat.say("Oh, I remember that you enjoyed the topic of $topic last time. Let's see if you can get a perfect score this time.")
+//
+//            else if(grade <= 10)
+//
+//                furhat.say("Oh, I remember that you did really well with the topic of $topic last time. Let's see if you can get a perfect score this time too.")
+//
+//            furhat.say("Alright, here we go!")
+//
+//            QuestionSet.next()
+//            furhat.attend(users.playing().first())
+//            goto(AskQuestion)
+//        }
 
     }
 

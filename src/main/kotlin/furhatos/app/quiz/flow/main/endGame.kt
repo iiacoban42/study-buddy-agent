@@ -38,9 +38,9 @@ val EndGame: State = state(parent = Parent) {
             it.quiz.lastScore = it.quiz.score
         }
 
-        mem.store(path)
-
-        println("wrote to file")
+//        mem.store(path)
+//
+//        println("wrote to file")
 
 
         delay(1000)

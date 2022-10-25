@@ -30,18 +30,18 @@ fun Start(user: User) = state(parent = Parent)  {
         furhat.say("Hello $name!")
 
 
-        val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
+//        val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
+//
+//        mem.load(path)
+//
+//        val a = mem.getPersonMemory(name.toString())
 
-        mem.load(path)
-
-        val a = mem.getPersonMemory(name.toString())
-
-        if (a.isNullOrEmpty()){
-            furhat.say("It's nice to meet you!")
-        }
-        else{
-            furhat.say("Welcome back!")
-        }
+//        if (a.isNullOrEmpty()){
+        furhat.say("It's nice to meet you!")
+//        }
+//        else{
+//            furhat.say("Welcome back!")
+//        }
         user.quiz.userName = name.toString()
 
 
