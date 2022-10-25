@@ -148,28 +148,4 @@ public class MemoryManager {
 
         return correctness;
     }
-
-    public static void main(String[] args) {
-        String path = Paths.get("").toAbsolutePath() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json";
-
-        MemoryManager mem = new MemoryManager();
-
-        mem.load(path);
-
-        mem.addToPerson("Jack", new Answer("Space_exploration_1", true, "high"));
-
-        mem.addToPerson("Jack", new Answer("Space_exploration_2", false, "low"));
-
-        mem.addToPerson("Jack", new Answer("Space_exploration_3", false, "high"));
-
-        mem.addToPerson("James", new Answer("Black_holes_3", true, "high"));
-
-        mem.store(path);
-
-        mem.load(path);
-
-        System.out.println(mem.getPersonScore("Jack"));
-
-        System.out.println(mem.getPersonTopic("James"));
-    }
 }
