@@ -8,6 +8,7 @@ import furhatos.records.User
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.File
+import java.nio.file.Paths
 
 const val storage = "src/main/kotlin/furhatos/app/quiz/db.json"
 
@@ -28,21 +29,21 @@ fun Start(user: User) = state(parent = Parent)  {
         val name = it.intent.name
         furhat.say("Hello $name!")
 
-        val myfile = File(storage)
-        val fileText = File(storage).readText(Charsets.UTF_8)
 
-        val data: JSONObject = JSONTokener(fileText).nextValue() as JSONObject
+        val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
 
-        if (!data.has(name.toString())){
+        mem.load(path)
+
+        val a = mem.getPersonMemory(name.toString())
+
+        if (a.isNullOrEmpty()){
             furhat.say("It's nice to meet you!")
-            data.put(name.toString(), mutableMapOf<String, Float>())
         }
         else{
             furhat.say("Welcome back!")
         }
         user.quiz.userName = name.toString()
 
-        myfile.writeText(data.toString())
 
         goto(QueryPerson(user))
 

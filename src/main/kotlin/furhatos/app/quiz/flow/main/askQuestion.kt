@@ -15,9 +15,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import memory.Answer
+import memory.MemoryManager
 import org.zeromq.SocketType
 import org.zeromq.ZMQ
 import recording.SoundRecorder
+import java.nio.file.Paths
 
 fun record(id: String): SoundRecorder? {
     val sound = SoundRecorder("-1")
@@ -34,7 +37,34 @@ fun record(id: String): SoundRecorder? {
     return recorder
 }
 
+fun face_score(face: String): Int {
+    when(face){
+        "angry" -> return -4
+        "disgust" -> return -3
+        "fear" -> return -3
+        "sad" -> return -1
+        "neutral" -> return 0
+        "happy" -> return 1
+        "surprise" -> return 2
+    }
+    return -100000 //should not happen
+}
+
+fun voice_score(voice: String): Int {
+    when(voice){
+        "sa" -> return -2
+        "boredo" -> return -1
+        "neutra" -> return 0
+        "happ" -> return 1
+    }
+    return -100000 //should not happen
+}
+
 var recorder: SoundRecorder? = null
+
+var mem = MemoryManager()
+
+var answersList = HashMap<String, Pair<String, Answer>>()
 
 val AskQuestion: State = state(parent = Parent) {
     var failedAttempts = 0
@@ -50,9 +80,69 @@ val AskQuestion: State = state(parent = Parent) {
         while (true) {
             println("Checking received messages...")
             try {
+
                 val rawRequest = socket.recv()
-                val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
-                println("pulled some data : $cleanRequest")
+
+                if(rawRequest != null){
+                    val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
+                    println("pulled some data : $cleanRequest")
+
+                    val request = cleanRequest.split(" ")
+
+                    val question_id = request[1].split(".")[0]
+
+                    val face = request[4].split(",")[0]
+
+                    val voice = request[8]
+
+                    val face_value = face_score(face).toDouble()
+
+                    val voice_value = voice_score(voice).toDouble()
+
+                    val confidence: Double = (face_value + voice_value) / 2
+
+                    var confidence_text = ""
+
+                    if(confidence < -0.5)
+                        confidence_text = "low"
+                    if(confidence> - 0.5 && confidence < 0.5)
+                        confidence_text = "medium"
+                    if(confidence > 0.5)
+                        confidence_text = "high"
+
+                    if(answersList.containsKey(question_id)){
+                        val ans = answersList[question_id]
+
+                        if (ans != null) {
+
+                            val answr = ans.second
+                            answr.confidence = confidence_text
+
+                            val userName = ans.first
+
+                            val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
+
+                            mem.load(path)
+
+                            println("loaded")
+
+                            val a = mem.getPersonMemory(userName)
+
+                            println(a)
+
+                            mem.addToPerson(userName, answr)
+
+                            println("added")
+
+                            mem.store(path)
+
+                            println("done")
+                        }
+
+                    }
+
+                }
+
             } catch (e: Exception) {
                 println(e)
             }
@@ -96,6 +186,13 @@ val AskQuestion: State = state(parent = Parent) {
         // If the user answers correct, we up the user's score and congratulates the user
         if (answer.correct) {
             furhat.gesture(Gestures.Smile)
+
+            val ans = Answer(QuestionSet.current.id, true, "none")
+
+            val userName = users.getUser(users.current.id).quiz.userName
+
+            answersList[QuestionSet.current.id] = Pair(userName, ans)
+
             users.current.quiz.score++
             random(
                     { furhat.say("Great! That was the ${furhat.voice.emphasis("right")}  answer") },

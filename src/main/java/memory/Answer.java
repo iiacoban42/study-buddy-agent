@@ -3,20 +3,44 @@ package memory;
 import org.json.JSONObject;
 
 public class Answer {
-    int questionId;
+    String questionId;
     boolean correctness;
-    double confidence;
+    String confidence;
 
-    public Answer(int questionId, boolean correctness, float confidence) {
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+
+    public boolean isCorrectness() {
+        return correctness;
+    }
+
+    public void setCorrectness(boolean correctness) {
+        this.correctness = correctness;
+    }
+
+    public String getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(String confidence) {
+        this.confidence = confidence;
+    }
+
+    public Answer(String questionId, boolean correctness, String confidence) {
         this.questionId = questionId;
         this.correctness = correctness;
         this.confidence = confidence;
     }
 
     public Answer(JSONObject o) {
-        this.questionId = (int) o.get("questionId");
+        this.questionId = (String) o.get("questionId");
         this.correctness = (boolean) o.get("correctness");
-        this.confidence = (double) o.get("confidence");
+        this.confidence = (String) o.get("confidence");
     }
 
     public JSONObject toJSON() {
