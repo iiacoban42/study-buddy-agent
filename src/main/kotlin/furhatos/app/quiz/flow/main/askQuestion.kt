@@ -64,6 +64,8 @@ var recorder: SoundRecorder? = null
 
 var mem = MemoryManager()
 
+val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
+
 var answersList = HashMap<String, Pair<String, Answer>>()
 
 val AskQuestion: State = state(parent = Parent) {
@@ -105,7 +107,7 @@ val AskQuestion: State = state(parent = Parent) {
 
                     if(confidence < -0.5)
                         confidence_text = "low"
-                    if(confidence> - 0.5 && confidence < 0.5)
+                    if(confidence>= - 0.5 && confidence <= 0.5)
                         confidence_text = "medium"
                     if(confidence > 0.5)
                         confidence_text = "high"
@@ -120,23 +122,11 @@ val AskQuestion: State = state(parent = Parent) {
 
                             val userName = ans.first
 
-                            val path = Paths.get("").toAbsolutePath().toString() + "\\src\\main\\kotlin\\furhatos\\app\\quiz\\db.json"
-
                             mem.load(path)
-
-                            println("loaded")
 
                             val a = mem.getPersonMemory(userName)
 
-                            println(a)
-
                             mem.addToPerson(userName, answr)
-
-                            println("added")
-
-                            mem.store(path)
-
-                            println("done")
                         }
 
                     }
@@ -148,7 +138,7 @@ val AskQuestion: State = state(parent = Parent) {
             }
 
             withContext(Dispatchers.IO) {
-                Thread.sleep(5_000)
+                Thread.sleep(10_000)
             }
         }
     }
@@ -160,6 +150,68 @@ val AskQuestion: State = state(parent = Parent) {
         users.current.quiz.selectedTopic
         // Set speech rec phrases based on the current question's answers
         furhat.setSpeechRecPhrases(QuestionSet.current.speechPhrases)
+
+        val userName = users.getUser(users.current.id).quiz.userName
+
+        val question_id = QuestionSet.current.id
+
+        val confidence = mem.getPersonConfidence(userName, question_id)
+
+        val correctness = mem.getQuestionCorrectness(userName, question_id)
+
+        if(confidence != ""){
+
+            random(
+                { furhat.say("Here comes a question you've seen before.") },
+                { furhat.say("Here's a question from last time.") },
+                { furhat.say("Oh, I think you'll remember this one.") }
+            )
+
+            if (confidence == "low") {
+                if (correctness == false)
+                    random(
+                        { furhat.say("You seemed puzzled by this last time. I think you'll get it right this time. I believe in you!") },
+                        { furhat.say("You seemed puzzled by this last time. I know you can do it!") },
+                        { furhat.say("You seemed puzzled by this last time. You have definitely improved. You got this!") }
+                    )
+
+                else random(
+                    { furhat.say("You seemed puzzled by this last time, but you did get it right. Trust in your knowledge!") },
+                    { furhat.say("You seemed puzzled by this last time, but you did get it right. No question is too hard for you!") },
+                    { furhat.say("You seemed puzzled by this last time, but you did get it right. Do your best this time too!") }
+                )
+
+            }
+            else if (confidence == "high"){
+                if(correctness == false)
+                    random(
+                        { furhat.say("You seemed confident last time, but the answer was wrong. That's alright. Mistakes happen. Let's see how you do this time.") },
+                        { furhat.say("You seemed confident last time, but the answer was wrong. Don't worry though. No question is too hard for you!") },
+                        { furhat.say("You seemed confident last time, but the answer was wrong. I know you can do better this time!") }
+                    )
+                else random(
+                    { furhat.say("You got this right last time. Let's see how well you still remember the lecture!") },
+                    { furhat.say("You got this right last time. I know you'll get it right again!") },
+                    { furhat.say("You got this right last time. I know it wasn't a lucky guess. You got this!") }
+                )
+            }
+            else if(confidence == "medium"){
+                if(correctness == false){
+                    furhat.gesture(Gestures.Thoughtful)
+                    random(
+                        { furhat.say("Hmm... You didn't get it right last time. Let's see if my explanation helped.") },
+                        { furhat.say("Hmm... You didn't get it right last time, but I'm sure you'll get it right this time.") },
+                        { furhat.say("Hmm... You didn't get it right last time. Let's see how you do now.") }
+                    )
+                }
+
+                else random(
+                    { furhat.say("This question seemed a bit boring to you. Maybe the topic is too easy? Let's see.") },
+                    { furhat.say("This question seemed a bit boring to you. Let's see if you still remember.") },
+                    { furhat.say("This question seemed a bit boring to you. Can you get the right answer again?") }
+                )
+            }
+        }
 
         recorder = record(QuestionSet.current.id)
 
@@ -183,13 +235,18 @@ val AskQuestion: State = state(parent = Parent) {
 
         val answer = it.intent
 
+        val userName = users.getUser(users.current.id).quiz.userName
+
+        val question_id = QuestionSet.current.id
+
+        val confidence = mem.getPersonConfidence(userName, question_id)
+
+        val correctness = mem.getQuestionCorrectness(userName, question_id)
+
         // If the user answers correct, we up the user's score and congratulates the user
         if (answer.correct) {
             furhat.gesture(Gestures.Smile)
-
             val ans = Answer(QuestionSet.current.id, true, "none")
-
-            val userName = users.getUser(users.current.id).quiz.userName
 
             answersList[QuestionSet.current.id] = Pair(userName, ans)
 
@@ -199,6 +256,26 @@ val AskQuestion: State = state(parent = Parent) {
                     { furhat.say("That's indeed ${furhat.voice.emphasis("correct")}") },
                     { furhat.say("That's ${furhat.voice.emphasis("right")}") }
             )
+
+            if(confidence != ""){
+                if(confidence == "low" && correctness == false){
+                    furhat.gesture(Gestures.BigSmile)
+                    furhat.say("See? I know you could do it")
+                }
+                else if (confidence == "high" && correctness == true){
+                    furhat.gesture(Gestures.BigSmile)
+                    furhat.say("I see you still remember the lecture. I'm glad")
+                }
+                else if(confidence == "medium" && correctness == false){
+                    furhat.gesture(Gestures.BigSmile)
+                    furhat.say("I see the explanation from last time helped. I'm glad")
+                }
+                else if(confidence == "high" && correctness == false){
+                    furhat.say("You got it right this time. Good job!")
+                }
+
+            }
+
             /*
             If the user answers incorrect, we give another user the chance of answering if one is present in the game.
             If we indeed ask another player, the furhat.ask() interrupts the rest of the handler.
@@ -212,15 +289,26 @@ val AskQuestion: State = state(parent = Parent) {
                 { furhat.say("Sorry, that was ${furhat.voice.emphasis("not")} right") }
             )
 
+            if(confidence != "") {
+                if (confidence == "low" && correctness == false) {
+                    furhat.gesture(Gestures.Smile)
+                    furhat.say("It's okay. Let's look at the right answer again.")
+                } else if (correctness == true) {
+                    furhat.gesture(Gestures.Smile)
+                    furhat.say("That being said, you did get it right last time. Maybe you forgot in the meantime. Let's refresh your memory.")
+                } else if (confidence == "medium" && correctness == false) {
+                    furhat.gesture(Gestures.Thoughtful)
+                    furhat.say("Hmm... maybe this is a bit too difficult. Let's look at the right answer again.")
+                } else if (confidence == "high" && correctness == false) {
+                    furhat.gesture(Gestures.Surprise)
+                    furhat.say("Oh my! Did I forget to explain that? Let's see the right answer")
+                }
+            }
+
             val explanation = QuestionSet.current.explanation
 
             furhat.say(explanation)
         }
-
-//        println("The question was, ${QuestionSet.current.text}")
-//        val rawRequest = socket.recv()
-//        val cleanRequest = String(rawRequest, 0, rawRequest.size - 1)
-//        println("pulled some data : $cleanRequest")
 
         // Check if the game has ended and if not, goes to a new question
         if (++rounds >= maxRounds) {

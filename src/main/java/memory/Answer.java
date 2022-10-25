@@ -2,6 +2,8 @@ package memory;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Answer {
     String questionId;
     boolean correctness;
@@ -49,5 +51,18 @@ public class Answer {
         res.put("correctness", this.correctness);
         res.put("confidence", this.confidence);
         return res;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return correctness == answer.correctness && Objects.equals(questionId, answer.questionId) && Objects.equals(confidence, answer.confidence);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionId, correctness, confidence);
     }
 }
