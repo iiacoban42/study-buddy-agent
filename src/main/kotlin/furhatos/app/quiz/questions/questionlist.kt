@@ -61,18 +61,18 @@ val questionsSolarSystem = mutableListOf(
         ),
 
         Question("Which planets in the Solar system have no moons?",
-                answer = listOf("Mercury and Venus"),
-                alternatives = listOf(listOf("Mars and Jupiter"),
-                        listOf("Jupiter and Saturn"),
-                        listOf("Uranus and Neptune")),
+                answer = listOf("Mercury and Venus", "Venus and Mercury"),
+                alternatives = listOf(listOf("Mars and Jupiter", "Jupiter and Mars"),
+                        listOf("Jupiter and Saturn", "Saturn and Jupiter"),
+                        listOf("Uranus and Neptune", "Neptune and Uranus")),
                 explanation = "Of the terrestrial (rocky) planets of the inner solar system, neither Mercury nor Venus have any moons at all, Earth has one and Mars has its two small moons.",
                 id = "Solar_system_no_moons"
         ),
         Question("Which planets in the Solar system have the most moon counts?",
-                answer = listOf("Jupiter and Saturn"),
-                alternatives = listOf(listOf("Mercury and Venus"),
-                        listOf("Uranus and Neptune"),
-                        listOf("Earth and Mars")),
+                answer = listOf("Jupiter and Saturn", "Saturn and Jupiter"),
+                alternatives = listOf(listOf("Mercury and Venus", "Venus and Mercury"),
+                        listOf("Uranus and Neptune", "Neptune and Uranus"),
+                        listOf("Earth and Mars", "Mars and Earth")),
                 explanation = "In our solar system, Saturn has the most moons, with around 63 being the latest confirmed count. Jupiter comes in second, with 57.",
                 id = "Solar_system_moon_counts"
         ),
@@ -90,10 +90,10 @@ val questionsSolarSystem = mutableListOf(
 val questionsBlackHoles = mutableListOf(
 
         Question("What is the name of the stretching process, while reaching a black hole?",
-                answer = listOf("spaghetti", "spaghettification"),
-                alternatives = listOf(listOf("pasta", "pastification"),
-                        listOf("lasagna", "lasagnification"),
-                        listOf("penne", "pennification")),
+                answer = listOf("spaghettification", "spaghetti"),
+                alternatives = listOf(listOf("pastification", "pasta"),
+                        listOf("lasagnification", "lasagna"),
+                        listOf("pennification", "penne")),
                 explanation = "The process is named spagehtification, after spaghetti, which is long, stringy pasta.",
                 id = "Black_holes_spaghetti"
 
@@ -118,10 +118,10 @@ val questionsBlackHoles = mutableListOf(
         ),
 
         Question("What is the name of the supermassive black hole in the Milky Way?",
-                answer = listOf("Sagittarius A*", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
-                alternatives = listOf(listOf("Gemini A*", "Gemini A", "Gemini", "Gemini A star"),
-                        listOf("Pisces A*", "Pisces A", "Pisces", "Pisces A star"),
-                        listOf("Taurus A*", "Taurus A", "Taurus", "Taurus A star")),
+                answer = listOf("Sagittarius A star", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
+                alternatives = listOf(listOf("Gemini A star", "Gemini A", "Gemini", "Gemini A star"),
+                        listOf("Pisces A star", "Pisces A", "Pisces", "Pisces A star"),
+                        listOf("Taurus A star", "Taurus A", "Taurus", "Taurus A star")),
                 explanation = "Sagittarius A* is the supermassive black hole at the center of our galaxy.",
                 id = "Black_holes_sagittarius"
         ),

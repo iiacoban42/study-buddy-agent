@@ -35,7 +35,14 @@ class DontKnow : Intent() {
                 "I don't know",
                 "don't know",
                 "no idea",
-                "I have no idea"
+                "I have no idea",
+                "I don't remember",
+                "don't remember",
+                "no clue",
+                "I have no clue",
+                "dunno",
+                "I am clueless",
+                "I'm clueless"
         )
     }
 }
