@@ -202,10 +202,10 @@ val questionsSpaceExploration = mutableListOf(
         ),
 
         Question("Which planets were not observed during Mariner program?",
-                answer = listOf("Venus"),
+                answer = listOf("Earth"),
                 alternatives = listOf(listOf("Mars"),
                         listOf("Mercury"),
-                        listOf("Earth")),
+                        listOf("Venus")),
                 explanation = "Between 1962 and 1973, NASA's Jet Propulsion Laboratory designed and built 10 spacecraft named Mariner to explore the inner solar system," +
                         " visiting the planets Venus, Mars and Mercury for the first time, and returning to Venus and Mars for additional close observations.",
                 id = "Space_exploration_mariner"
