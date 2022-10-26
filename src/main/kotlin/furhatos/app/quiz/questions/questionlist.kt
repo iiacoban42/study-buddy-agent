@@ -120,7 +120,7 @@ val questionsBlackHoles = mutableListOf(
         Question("What is the name of the supermassive black hole in the Milky Way?",
                 answer = listOf("Sagittarius A*", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
                 alternatives = listOf(listOf("Gemini A*", "Gemini A", "Gemini", "Gemini A star"),
-                        listOf("Psices A*", "Pisces A", "Pisces", "Pisces A star"),
+                        listOf("Pisces A*", "Pisces A", "Pisces", "Pisces A star"),
                         listOf("Taurus A*", "Taurus A", "Taurus", "Taurus A star")),
                 explanation = "Sagittarius A* is the supermassive black hole at the center of our galaxy.",
                 id = "Black_holes_sagittarius"
