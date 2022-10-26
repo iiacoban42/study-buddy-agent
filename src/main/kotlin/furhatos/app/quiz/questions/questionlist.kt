@@ -13,105 +13,78 @@ var questions = mutableListOf<Question>()
 
 val questionsSolarSystem = mutableListOf(
 
-        Question("What is the Great Red Spot on Jupiter?",
-                answer = listOf("a storm", "storm"),
-                alternatives = listOf(listOf("a volcano",  "volcano"),
-                        listOf("a crater", "crater"),
-                        listOf("a lake", "lake")),
-                explanation = "Jupiter has no volcanoes, craters or lakes. The Great Red Spot is a massive storm in Jupiter's atmosphere.",
-                id = "Solar_system_Jupiter"
+        Question("What is the most famous object in Kuiper Belt?",
+                answer = listOf("Dwarf Planet Pluto", "Pluto"),
+                alternatives = listOf(listOf("Charon Moon",  "Charon"),
+                        listOf("Neptune"),
+                        listOf("Saturn")),
+                explanation = "Just outside of Neptune's orbit is a ring of icy bodies. We call it the Kuiper Belt. This is where you'll find dwarf planet Pluto.",
+                id = "Solar_system_Kuiper_Belt"
         ),
 
-        Question("Which of this planet is the smallest?",
-                answer = listOf("Mercury"),
-                alternatives = listOf(listOf("Uranus"),
-                        listOf("Jupiter"),
-                        listOf("Earth")),
-                explanation = "Jupiter is 142,984 km wide, Uranus is 51,118 km wide and Earth is 12,756 km wide. So Mercury is the smallest with 4,879 km wide",
+        Question("Name the giant spherical shell, that surrounds our solar system.",
+                answer = listOf("Oort Cloud", "Cloud", "Oort"),
+                alternatives = listOf(listOf("Kuiper Belt"),
+                        listOf("Asteroid belt", "Asteroid"),
+                        listOf("Milky way")),
+                explanation = "It's called the Oort Cloud. Unlike the orbits of the planets and the Kuiper Belt, which are pretty flat like a disk," +
+                        " the Oort Cloud is a spherical shell surrounding everything in our solar system. It's like a bubble with a thick shell.",
                 id = "Solar_system_smallest"
 
         ),
 
-        Question("Which planet do the moons Oberon and Titania belong to?",
-                answer = listOf("Uranus"),
-                alternatives = listOf(listOf("Jupiter"),
-                        listOf("Earth"),
-                        listOf("Venus")),
-                explanation = "Jupiter has more than 60 moons but not Oberon and Titania, Earth is orbited by the moon and Venus has no moons. " +
-                        "Oberon and Titania are two of Uranus' 27 moons",
-                id = "Solar_system_Oberon_Titania"
+        Question("One astronomical unit is … .",
+                answer = listOf("150 million kilometers"),
+                alternatives = listOf(listOf("15 million kilometers"),
+                        listOf("50 million kilometers"),
+                        listOf("15 billion kilometers")),
+                explanation = "The astronomical unit is a unit of length, roughly the distance from Earth to the Sun and equal to 150 million kilometres.",
+                id = "Solar_system_unit"
 
         ),
-        Question("The largest volcano in the solar system is called Olympus Mons? Where is it?",
-                answer = listOf("Mars"),
-                alternatives = listOf(listOf("Venus"),
-                        listOf("Earth"),
-                        listOf("Jupiter")),
-                explanation = "Venus has more than 1600 volcanoes but Olympus Mons is not one of them. " +
-                        "Earth is not home to Olympus Mons. Earth's largest volcano is Mauna Loa, Hawaii." +
-                        "Jupiter has no volcanoes" +
-                        "Olympus Mons, the largest volcano in the solar system is on Mars",
-                id = "Solar_system_volcano"
+        Question("What is the name of the “bubble” created by the solar wind?",
+                answer = listOf("heliosphere"),
+                alternatives = listOf(listOf("atmosphere"),
+                        listOf("stratosphere"),
+                        listOf("lithosphere")),
+                explanation = "As the solar wind flows from the sun, it creates a bubble in space known as the heliosphere around our solar system.",
+                id = "Solar_system_solar_wind"
         ),
 
-        Question("What are comets made off?",
-                answer = listOf("Snow ice and dust", "dust", "snow", "ice", "snow ice", "ice dust", "snow dust"),
-                alternatives = listOf(listOf("Poisonous liquid"),
-                        listOf("Rusty metal", "metal"),
-                        listOf("Hot liquid rock", "liquid rock")),
-                explanation = "Comets are not made of poisonous liquids, rusty metal or hot liquid rock." +
-                        "Comets are mostly made of snow ice and dust.",
-                id = "Solar_system_comets"
+        Question("When did the first spacecraft cross the termination shock?",
+                answer = listOf("2004"),
+                alternatives = listOf(listOf("1977"),
+                        listOf("2007"),
+                        listOf("1969")),
+                explanation = "The termination shock was traversed by Voyager 1 in 2004, and Voyager 2 in 2007. ",
+                id = "Solar_system_termination_shock"
         ),
 
-        Question("What is the Sun mainly made from?",
-                answer = listOf("Gas"),
-                alternatives = listOf(listOf("Molten iron"),
-                        listOf("Rock"),
-                        listOf("Liquid lava", "Lava")),
-                explanation = "The Sun is not made of molten iron, rock or lava" +
-                        "The Sun is mainly made from hydrogen and helium gas",
-                id = "Solar_system_sun"
+        Question("Which planets in the Solar system have no moons?",
+                answer = listOf("Mercury and Venus"),
+                alternatives = listOf(listOf("Mars and Jupiter"),
+                        listOf("Jupiter and Saturn"),
+                        listOf("Uranus and Neptune")),
+                explanation = "Of the terrestrial (rocky) planets of the inner solar system, neither Mercury nor Venus have any moons at all, Earth has one and Mars has its two small moons.",
+                id = "Solar_system_no_moons"
         ),
-        Question("Which of these best describes the atmosphere surrounding Venus?",
-                answer = listOf("Hot and poisonous", "poisonous"),
-                alternatives = listOf(listOf("Cold and snowy", "snowy"),
-                        listOf("Cold and wet", "wet"),
-                        listOf("Bright and sunny", "Sunny")),
-                explanation = "Venus is the hottest planet in the solar system, temperatures reach 464 degrees Celsius, however, " +
-                        "very little sunlight passes through the thick clouds." +
-                        "Venus is surrounded by thick, acidic clouds around 50 km above its surface.",
-                id = "Solar_system_Venus"
+        Question("Which planets in the Solar system have the most moon counts?",
+                answer = listOf("Jupiter and Saturn"),
+                alternatives = listOf(listOf("Mercury and Venus"),
+                        listOf("Uranus and Neptune"),
+                        listOf("Earth and Mars")),
+                explanation = "In our solar system, Saturn has the most moons, with around 63 being the latest confirmed count. Jupiter comes in second, with 57.",
+                id = "Solar_system_moon_counts"
         ),
 
-        Question("How many moons does Mars have?",
-                answer = listOf("Two"),
-                alternatives = listOf(listOf("One", "Just one"),
-                        listOf("50"),
-                        listOf("13")),
-                explanation = "Mars has two moons, Phobos and Deimos",
-                id = "Solar_system_Mars"
-        ),
-
-        Question("Which is the closest planet to the sun?",
-                answer = listOf("Mercury"),
-                alternatives = listOf(listOf("Neptune"),
-                        listOf("Earth"),
-                        listOf("Venus")),
-                explanation = "Neptune is the furthest planet from the sun, Earth is the third planet from the sun, Venus is the second planet form the sun"+
-                        "while, Mercury is the closest planet to the sun.",
-                id = "Solar_system_closest"
-        ),
-
-        Question("Where is the asteroid belt?",
-                answer = listOf("Between Mars and Jupiter"),
-                alternatives = listOf(listOf("Between Earth and Venus"),
-                        listOf("Between Earth and Mars"),
-                        listOf("Between Jupiter and Saturn")),
-                explanation = "The asteroid belt is found in a region between the planets Mars and Jupiter.",
-                id = "Solar_system_asteroid"
+        Question("Which of these is not a terrestrial planet?",
+                answer = listOf("Saturn"),
+                alternatives = listOf(listOf("Mars"),
+                        listOf("Venus"),
+                        listOf("Mercury")),
+                explanation = "The first four planets: Mercury, Venus, Earth, and Mars are terrestrial planets. They are all small with solid, rocky surfaces.",
+                id = "Solar_system_terrestrial"
         )
-
 )
 
 val questionsBlackHoles = mutableListOf(
@@ -147,7 +120,7 @@ val questionsBlackHoles = mutableListOf(
         Question("What is the name of the supermassive black hole in the Milky Way?",
                 answer = listOf("Sagittarius A*", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
                 alternatives = listOf(listOf("Gemini A*", "Gemini A", "Gemini", "Gemini A star"),
-                        listOf("Psices A*", "Pisces A", "Pisces", "Pisces A star"),
+                        listOf("Pisces A*", "Pisces A", "Pisces", "Pisces A star"),
                         listOf("Taurus A*", "Taurus A", "Taurus", "Taurus A star")),
                 explanation = "Sagittarius A* is the supermassive black hole at the center of our galaxy.",
                 id = "Black_holes_sagittarius"
@@ -192,12 +165,76 @@ val questionsBlackHoles = mutableListOf(
 
 val questionsSpaceExploration = mutableListOf(
 
-        Question("When did the first man walk on the moon?",
-                answer = listOf("1969"),
-                alternatives = listOf(listOf("1970"),
-                        listOf("1980"),
-                        listOf("1965")),
-                explanation = "Apollo 11 (July 16–24, 1969) was the American spaceflight that first landed humans on the Moon.",
-                id = "Space_exploration_Moon"
+        Question("What is the first artificial satellite to orbit Earth?",
+                answer = listOf("Sputnik 1"),
+                alternatives = listOf(listOf("Vostok 1"),
+                        listOf("Soyuz 1"),
+                        listOf("Kosmos 1")),
+                explanation = "On October 4, 1957, the USSR launched Sputnik, the first artificial satellite to orbit Earth, a metal sphere the size of a basketball.",
+                id = "Space_exploration_satellite"
+        ),
+
+        Question("What was the first creature, carried by satellite?",
+                answer = listOf("A dog", "dog"),
+                alternatives = listOf(listOf("A cat", "cat"),
+                        listOf("A rat", "rat"),
+                        listOf("A rabbit", "rabbit")),
+                explanation = "Hurriedly prepared to take advantage of the propaganda value of the first satellite, Sputnik 2 utilized an animal habitat and carried the dog Laika, the first animal to orbit the Earth.",
+                id = "Space_exploration_creature"
+        ),
+
+        Question("Who was the first cosmonaut in space?",
+                answer = listOf("Yuri Gagarin"),
+                alternatives = listOf(listOf("Neil Armstrong"),
+                        listOf("Sergei Korolev"),
+                        listOf("Michael Collins")),
+                explanation = "Yuri Gagarin was a Soviet pilot and cosmonaut who became the first human to journey into outer space. Travelling in the Vostok 1 capsule, Gagarin completed one orbit of Earth on 12 April 1961.",
+                id = "Space_exploration_first_in_space"
+        ),
+
+        Question("Which nation developed the first human-made object to hit the Moon?",
+                answer = listOf("The Soviet Union", "U.S.S.R."),
+                alternatives = listOf(listOf("The United States of America", "The US", "The United States", "US", "United States", "America"),
+                        listOf("China", "The Republic of China", "People's Republic of China"),
+                        listOf("Germany")),
+                explanation = "Launched on 2 January 1959, the Soviet Union probe Luna 1 travelled to within almost 4000 miles of the Moon's surface in 34 hours.",
+                id = "Space_exploration_hit_moon"
+        ),
+
+        Question("Which planets were not observed during Mariner program?",
+                answer = listOf("Venus"),
+                alternatives = listOf(listOf("Mars"),
+                        listOf("Mercury"),
+                        listOf("Earth")),
+                explanation = "Between 1962 and 1973, NASA's Jet Propulsion Laboratory designed and built 10 spacecraft named Mariner to explore the inner solar system," +
+                        " visiting the planets Venus, Mars and Mercury for the first time, and returning to Venus and Mars for additional close observations.",
+                id = "Space_exploration_mariner"
+        ),
+
+        Question("What is considered to be hidden under surface ice of Jupiter’s moon, called Europa?",
+                answer = listOf("An ocean", "ocean"),
+                alternatives = listOf(listOf("A lake", "lake"),
+                        listOf("Living organism", "Organisms"),
+                        listOf("Poisonous gas", "Gas")),
+                explanation = "Scientists are almost certain that hidden beneath the icy surface of Europa is a saltwater ocean thought to contain about twice as much water as Earth's global ocean.",
+                id = "Space_exploration_Europa"
+        ),
+
+        Question("When did the USA successfully launch satellite Explorer 1?",
+                answer = listOf("1958"),
+                alternatives = listOf(listOf("1969"),
+                        listOf("1961"),
+                        listOf("1971")),
+                explanation = "Explorer 1 became the first successfully launched satellite by the United States when it was sent to space on January 31, 1958.",
+                id = "Space_exploration_explorer1"
+        ),
+
+        Question("What’s the name of the rocket designer, who developed the first intercontinental ballistic missile?",
+                answer = listOf("Sergei Korolev"),
+                alternatives = listOf(listOf("Yuri Gagarin"),
+                        listOf("Valentina Tereshkova"),
+                        listOf("Alan Shepard")),
+                explanation = "The first ICBM was developed in 1957, by Soviet rocket designer Sergei Korolev.",
+                id = "Space_exploration_ICBM"
         )
 )
