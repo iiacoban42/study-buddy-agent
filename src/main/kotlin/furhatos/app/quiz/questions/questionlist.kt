@@ -218,5 +218,23 @@ val questionsSpaceExploration = mutableListOf(
                         listOf("Poisonous gas", "Gas")),
                 explanation = "Scientists are almost certain that hidden beneath the icy surface of Europa is a saltwater ocean thought to contain about twice as much water as Earth's global ocean.",
                 id = "Space_exploration_Europa"
+        ),
+
+        Question("When did the USA successfully launch satellite Explorer 1?",
+                answer = listOf("1958"),
+                alternatives = listOf(listOf("1969"),
+                        listOf("1961"),
+                        listOf("1971")),
+                explanation = "Explorer 1 became the first successfully launched satellite by the United States when it was sent to space on January 31, 1958.",
+                id = "Space_exploration_explorer1"
+        ),
+
+        Question("What’s the name of the rocket designer, who developed the first intercontinental ballistic missile?",
+                answer = listOf("Sergei Korolev"),
+                alternatives = listOf(listOf("Yuri Gagarin"),
+                        listOf("Valentina Tereshkova"),
+                        listOf("Alan Shepard")),
+                explanation = "The first ICBM was developed in 1957, by Soviet rocket designer Sergei Korolev.",
+                id = "Space_exploration_ICBM"
         )
 )
