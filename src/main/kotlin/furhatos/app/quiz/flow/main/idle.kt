@@ -229,6 +229,8 @@ fun Lesson(topic: String) = state(parent = Parent) {
             furhat.say("Since the Apollo lunar program ended in 1972, human space exploration has been limited to low-Earth orbit, where many countries participate and conduct research on the International Space Station. However, unpiloted probes have traveled throughout our solar system. In recent years, probes have made a range of discoveries, including that a moon of Jupiter, called Europa, and a moon of Saturn, called Enceladus, have oceans under their surface ice that scientists think may harbor life. ")
         }
 
+        furhat.say("Okay, here come the questions.")
+
         QuestionSet.next()
         furhat.attend(users.playing().first())
         goto(AskQuestion)
