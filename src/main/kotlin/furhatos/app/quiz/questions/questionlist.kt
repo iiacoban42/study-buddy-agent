@@ -89,91 +89,77 @@ val questionsSolarSystem = mutableListOf(
 
 val questionsBlackHoles = mutableListOf(
 
-        Question("Albert Einstein came up with the term 'black hole'.",
-                answer = listOf("false", "that's false", "wrong", "that's wrong"),
-                alternatives = listOf(listOf("true", "that's true", "right", "that's right")),
-                explanation = "The term of black holes was coined by Robert H. Dicke in the early 1960s",
-                id = "Black_holes_Einstein"
+        Question("What is the name of the stretching process, while reaching a black hole?",
+                answer = listOf("spaghetti", "spaghettification"),
+                alternatives = listOf(listOf("pasta", "pastification"),
+                        listOf("lasagna", "lasagnification"),
+                        listOf("penne", "pennification")),
+                explanation = "The process is named spagehtification, after spaghetti, which is long, stringy pasta.",
+                id = "Black_holes_spaghetti"
 
         ),
 
-        Question("How is a black hole formed?",
-                answer = listOf("when a star explodes at the end of its life cycle", "when a star dies", "when a star explodes"),
-                alternatives = listOf(listOf("when the fabric of the universe tears", "when the fabric tears", "when the universe tears"),
-                        listOf("when a small planet explodes", "when a planet explodes", "a planet explodes"),
-                        listOf("they just appear", "just appear")),
-                explanation = "Stellar black holes form when the center of a very massive star collapses in upon itself. This collapse also causes a supernova, or an exploding star, that blasts part of the star into space.",
-                id = "Black_holes_formed"
+        Question("Which of these is a type of black hole? ",
+                answer = listOf("stellar", "star-like"),
+                alternatives = listOf(listOf("large"),
+                        listOf("big"),
+                        listOf("huge")),
+                explanation = "The four types of black holes are: stellar, intermediate, supermassive, and miniature",
+                id = "Black_holes_type"
         ),
 
-        Question("Black holes cannot be seen because they don't reflect light.",
-                answer = listOf("true", "that's true", "right", "that's right"),
-                alternatives = listOf(listOf("false", "that's false", "wrong", "that's wrong")),
-                explanation = "Light cannot escape a black hole, its extreme gravity warps space around it, which allows light to \"echo,\" bending around the back of the object.",
-                id = "Black_holes_light"
+        Question("What is a supernova?",
+                answer = listOf("a powerful and luminous explosion of a star", "luminous explosion of a star", "powerful explosion of a star", "explosion of a star", "star explosion"),
+                alternatives = listOf(listOf("solar wind", "wind from the sun"),
+                        listOf("a large comet", "comet", "large comet"),
+                        listOf("the core of a star", "star core", "stellar core", "core of a star")),
+                explanation = "A supernova is an explosion produced at the end of a massive star's life.",
+                id = "Black_holes_supernova"
         ),
 
-        Question("What surrounds a black hole?",
-                answer = listOf("space dust, stars and galaxies", "space dust", "stars", "galaxies"),
-                alternatives = listOf(listOf("a ring of bright light", "ring of light", "a ring of light", "light"),
-                        listOf("No one knows", "nobody knows", "we don't know"),
-                        listOf("tiny planets", "planets")),
-                explanation = "A black hole's gravity can sometimes pull off the outer gases of other stars and galaxies and grow a disk around itself.",
-                id = "Black_holes_suroundings"
+        Question("What is the name of the supermassive black hole in the Milky Way?",
+                answer = listOf("Sagittarius A*", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
+                alternatives = listOf(listOf("Gemini A*", "Gemini A", "Gemini", "Gemini A star"),
+                        listOf("Pisces A*", "Pisces A", "Pisces", "Pisces A star"),
+                        listOf("Taurus A*", "Taurus A", "Taurus", "Taurus A star")),
+                explanation = "Sagittarius A* is the supermassive black hole at the center of our galaxy.",
+                id = "Black_holes_sagittarius"
         ),
-        Question("What pulls objects into a black hole?",
-                answer = listOf("a strong gravitational force", "the gravitational force", "gravitational force", "gravity"),
-                alternatives = listOf(listOf("a tractor beam", "a beam", "beam"),
-                        listOf("objects just drift into it", "objects drifting into it", "object going towards it", "objects drifting towards it"),
-                        listOf("it doesn't", "it actually doesn't", "that doesn't happen")),
-                explanation = "The strong gravitational force pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space.",
-                id = "Black_holes_pull"
-        ),
-
-        Question("What is the area surrounding a black hole called?",
-                answer = listOf("event horizon"),
-                alternatives = listOf(listOf("light ring"),
-                        listOf("perimeter"),
-                        listOf("circumference")),
-                explanation = "A black hole's “surface”, called its event horizon, defines the boundary where the velocity needed to escape exceeds the speed of light, which is the speed limit of the cosmos.",
-                id = "Black_holes_event"
+        Question("When did the big bang approximately happen?",
+                answer = listOf("13.7 billion years ago", "billions of years ago", "13.7 billion years"),
+                alternatives = listOf(listOf("10.7 thousand years ago", "thousands of years ago", "10.7 thousand years"),
+                        listOf("300 thousand years ago", "hundreds of thousands of years ago", "300 thousand years"),
+                        listOf("3.4 million years ago", "millions of years ago", "3.4 million years")),
+                explanation = "The universe is thought to have begun with the big bang, approximately 13.7 billion years ago.",
+                id = "Black_holes_big_bang"
         ),
 
-        Question("What are the three sizes of black holes known as?",
-                answer = listOf("gargantuan, stellar and primordial"),
-                alternatives = listOf(listOf("small, huge, massive"),
-                        listOf("tiny, big, gigantic"),
-                        listOf("large, huge, massive")),
-                explanation = "The main three sizes of black holes are gargantuan, stellar and primordial.",
-                id = "Black_holes_size"
+        Question("How did astronomers eventually identify Sagittarius A*?",
+                answer = listOf("they looked for stars that seem to orbit nothing", "stars that orbit nothing", "orbit nothing", "seem to orbit nothing"),
+                alternatives = listOf(listOf("they found it with a powerful telescope", "telescope", "powerful telescope"),
+                        listOf("they took images from satellites", "satellite", "satellite images"),
+                        listOf("they sent a probe into outer space", "probe", "probe in outer space")),
+                explanation = "Black holes don't emit light, so the easiest way is to look for objects that orbit something that is not there",
+                id = "Black_holes_identify_sagittarius"
+        ),
+
+        Question("What is emitted when a black hole swallows a star?",
+                answer = listOf("radiation"),
+                alternatives = listOf(listOf("space dust", "dust"),
+                        listOf("hot gas", "gas"),
+                        listOf("plasma")),
+                explanation = "The massive gravitational and magnetic forces superheat the infalling gas and dust, causing it to emit radiation.",
+                id = "Black_holes_emitted"
 
         ),
 
-        Question("How big can a black hole be?",
-                answer = listOf("the size of several million suns", "million suns", "a few million suns", "millions of suns"),
-                alternatives = listOf(listOf("the size of London", "size of London", "London", "about the size of London"),
-                        listOf("the size of Mars", "size of Mars", "Mars", "about the size of Mars"),
-                        listOf("the size of a football", "size of football", "football", "about the size of a football")),
-                explanation = "There is no theoretical upper limit to the mass of a black hole. However, astronomers have noted that the ultra-massive black holes never seem to exceed about 10 billion solar masses.",
-                id = "Black_holes_big"
-        ),
-
-        Question("What is the centre of a black hole called?",
-                answer = listOf("Singularity"),
-                alternatives = listOf(listOf("Sauron"),
-                        listOf("Bullseye"),
-                        listOf("Centre point")),
-                explanation = "The singularity constitutes the center of a black hole, hidden by the object's “surface,” the event horizon.",
-                id = "Black_holes_centre"
-        ),
-
-        Question("According to scientists, how many black holes exist?",
-                answer = listOf("Billions"),
-                alternatives = listOf(listOf("Millions"),
-                        listOf("Thousands"),
-                        listOf("Hundreds")),
-                explanation = "Scientists estimate that there are as many as ten million to a billion such black holes in the Milky Way alone.",
-                id = "Black_holes_number"
+        Question("What is the 'event horizon'?",
+                answer = listOf("the point at which escape becomes impossible", "the point of no return"),
+                alternatives = listOf(listOf("the center of a black hole", "the center", "center", "center of a black hole"),
+                        listOf("a ring of light around the black hole", "ring of light", "ring around a black hole"),
+                        listOf("the radiation left behind from when the black hole formed", "radiation", "radiation from when the black hole formed")),
+                explanation = "The event horizon is the point at which you cannot escape a black hole's gravitational pull.",
+                id = "Black_holes_event_horizon"
         )
 )
 
