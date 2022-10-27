@@ -34,10 +34,10 @@ val questionsSolarSystem = mutableListOf(
         ),
 
         Question("One astronomical unit is … .",
-                answer = listOf("150 million kilometers"),
-                alternatives = listOf(listOf("15 million kilometers"),
-                        listOf("50 million kilometers"),
-                        listOf("15 billion kilometers")),
+                answer = listOf("150 million kilometers", "150 million", "150 million km"),
+                alternatives = listOf(listOf("15 million kilometers", "15 million", "15 million km"),
+                        listOf("50 million kilometers", "50 million", "50 million km"),
+                        listOf("15 billion kilometers", "15 billion", "15 billion km")),
                 explanation = "The astronomical unit is a unit of length, roughly the distance from Earth to the Sun and equal to 150 million kilometres.",
                 id = "Solar_system_unit"
 
@@ -89,11 +89,11 @@ val questionsSolarSystem = mutableListOf(
 
 val questionsBlackHoles = mutableListOf(
 
-        Question("What is the name of the stretching process, while reaching a black hole?",
-                answer = listOf("spaghettification", "spaghetti"),
-                alternatives = listOf(listOf("pastification", "pasta"),
-                        listOf("lasagnification", "lasagna"),
-                        listOf("pennification", "penne")),
+        Question("What is the stretching process while reaching a black hole named after?",
+                answer = listOf("spaghetti", "spaghetti"),
+                alternatives = listOf(listOf("pasta", "pasta"),
+                        listOf("lasagna", "lasagna"),
+                        listOf("penne", "penne")),
                 explanation = "The process is named spagehtification, after spaghetti, which is long, stringy pasta.",
                 id = "Black_holes_spaghetti"
 
@@ -118,10 +118,10 @@ val questionsBlackHoles = mutableListOf(
         ),
 
         Question("What is the name of the supermassive black hole in the Milky Way?",
-                answer = listOf("Sagittarius A star", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
-                alternatives = listOf(listOf("Gemini A star", "Gemini A", "Gemini", "Gemini A star"),
-                        listOf("Pisces A star", "Pisces A", "Pisces", "Pisces A star"),
-                        listOf("Taurus A star", "Taurus A", "Taurus", "Taurus A star")),
+                answer = listOf("Sagittarius Ay star", "Sagittarius A", "Sagittarius", "Sagittarius A star"),
+                alternatives = listOf(listOf("Gemini Ay star", "Gemini A", "Gemini", "Gemini A star"),
+                        listOf("Pisces Ay star", "Pisces A", "Pisces", "Pisces A star"),
+                        listOf("Taurus Ay star", "Taurus A", "Taurus", "Taurus A star")),
                 explanation = "Sagittarius A* is the supermassive black hole at the center of our galaxy.",
                 id = "Black_holes_sagittarius"
         ),
